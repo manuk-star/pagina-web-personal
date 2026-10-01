@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Gustos de Manuel Ignacio Olan."
+    />
+    <meta name="author" content="Manuel Ignacio Olan" />
+    <title>Gustos | Manuel Ignacio Olan</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav aria-label="Navegación principal">
+        <button
+          class="nav__toggle"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          &#9776;
+        </button>
+
+        <ul class="nav__links">
+          <li><a href="index.html">~/inicio</a></li>
+          <li><a href="sobre-mi.html">~/sobre-mi</a></li>
+          <li><a href="galeria.html">~/galeria</a></li>
+          <li>
+            <a href="gustos.html" aria-current="page">~/gustos</a>
+          </li>
+          <li><a href="contacto.html">~/contacto</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section aria-labelledby="gustos-titulo">
+        <p class="nano__cmd" aria-hidden="true">
+          manuel@linux:~$ tree gustos/
+        </p>
+
+        <h1 id="gustos-titulo">Mis gustos</h1>
+
+        <ul class="gustos">
+          <li>
+            <h2>Tecnología</h2>
+            <ul>
+              <li>AWS</li>
+              <li>Apple</li>
+            </ul>
+          </li>
+
+          <li>
+            <h2>Cine y series</h2>
+            <ul>
+              <li>Harry Potter</li>
+              <li>Toy Story</li>
+              <li>Piratas del Caribe</li>
+              <li>The Big Bang Theory</li>
+            </ul>
+          </li>
+
+          <li>
+            <h2>Estilo de vida</h2>
+            <ul>
+              <li>Café</li>
+              <li>Caminar</li>
+              <li>Zapatillas / Tenis</li>
+              <li>Música</li>
+            </ul>
+          </li>
+
+          <li>
+            <h2>Viajes</h2>
+            <ul>
+              <li>Viajar</li>
+              <li>Viajar en tren</li>
+              <li>Edificios</li>
+              <li>Historia</li>
+            </ul>
+          </li>
+
+          <li>
+            <h2>Otros</h2>
+            <ul>
+              <li>Fútbol</li>
+              <li>Comida</li>
+              <li>Autos</li>
+            </ul>
+          </li>
+        </ul>
+
+        <section aria-labelledby="video-titulo">
+          <h2 id="video-titulo">Un poco de mis intereses</h2>
+
+          <video controls width="640">
+            <source src="media/video.mp4" type="video/mp4" />
+            Tu navegador no soporta la reproducción de vídeo.
+          </video>
+
+          <p class="nano__cmd">
+            &gt; fuente: TikTok —
+            <a
+              href="https://www.tiktok.com/@elgranfutbol"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @elgranfutbol
+            </a>
+            <br />
+            &gt; música: «Oh Qué Será» — Willie Colón
+          </p>
+        </section>
+
+        <section aria-labelledby="podcast-titulo">
+          <h2 id="podcast-titulo">Podcast de interés</h2>
+
+          <p>
+            Un podcast relacionado con la tecnología y otros temas que forman
+            parte de mis intereses.
+          </p>
+
+          <audio controls>
+            <source src="media/podcast.mp3" type="audio/mpeg" />
+            Tu navegador no soporta la reproducción de audio.
+          </audio>
+
+          <p class="nano__cmd">
+            &gt; podcast: Aula de Software Libre —
+            <a
+              href="https://www.uco.es/aulasoftwarelibre/2722-episodio-1/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Episodio 1
+            </a>
+          </p>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 Manuel Ignacio Olan</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Galería de viajes de Manuel Ignacio Olan." />
+    <meta name="author" content="Manuel Ignacio Olan" />
+    <title>Galería | Manuel Ignacio Olan</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Navegación principal">
+        <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
+        <ul class="nav__links">
+          <li><a href="index.html">~/inicio</a></li>
+          <li><a href="sobre-mi.html">~/sobre-mi</a></li>
+          <li><a href="galeria.html" aria-current="page">~/galeria</a></li>
+          <li><a href="gustos.html">~/gustos</a></li>
+          <li><a href="contacto.html">~/contacto</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section aria-labelledby="galeria-titulo">
+        <p class="nano__cmd" aria-hidden="true">manuel@linux:~$ ls galeria/</p>
+        <h1 id="galeria-titulo">Galería de viajes</h1>
+        <div class="carrusel">
+          <button class="carrusel__btn carrusel__btn--prev" aria-label="Anterior">&#8249;</button>
+          <div class="carrusel__track" role="region" aria-label="Imágenes de viajes">
+            <img src="img/3fronteras.jpeg" alt="3 fronteras" />
+            <img src="img/barcelona.jpeg" alt="Barcelona" />
+            <img src="img/berlin.jpeg" alt="Berlín" />
+            <img src="img/bogota.jpeg" alt="Bogotá" />
+            <img src="img/bruselas.jpeg" alt="Bruselas" />
+            <img src="img/cartagena.jpeg" alt="Cartagena" />
+            <img src="img/cem.jpeg" alt="CEM" />
+            <img src="img/Colonia.jpeg" alt="Colonia" />
+            <img src="img/GDL1.jpeg" alt="Guadalajara" />
+            <img src="img/guanajuato.jpeg" alt="Guanajuato" />
+            <img src="img/lieja.jpeg" alt="Lieja" />
+            <img src="img/Londres1.jpeg" alt="Londres" />
+            <img src="img/Luxenburgo.jpeg" alt="Luxemburgo" />
+            <img src="img/machupicchu.jpeg" alt="Machu Picchu" />
+            <img src="img/medellin.jpeg" alt="Medellín" />
+            <img src="img/munich.jpeg" alt="Múnich" />
+            <img src="img/paris.jpeg" alt="París" />
+            <img src="img/PB1.jpeg" alt="Puebla" />
+            <img src="img/praga.jpeg" alt="Praga" />
+            <img src="img/PSV.jpeg" alt="PSV" />
+            <img src="img/unam.jpeg" alt="UNAM" />
+          </div>
+          <button class="carrusel__btn carrusel__btn--next" aria-label="Siguiente">&#8250;</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 Manuel Ignacio Olan</p>
+    </footer>
+    <script src="js/galeria.js"></script>
+  </body>
+</html>

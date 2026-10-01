@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Sobre mí - Manuel Ignacio Olan." />
+    <meta name="author" content="Manuel Ignacio Olan" />
+    <title>Sobre mí | Manuel Ignacio Olan</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav aria-label="Navegación principal">
+        <button
+          class="nav__toggle"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          &#9776;
+        </button>
+
+        <ul class="nav__links">
+          <li><a href="index.html">~/inicio</a></li>
+          <li>
+            <a href="sobre-mi.html" aria-current="page">~/sobre-mi</a>
+          </li>
+          <li><a href="galeria.html">~/galeria</a></li>
+          <li><a href="gustos.html">~/gustos</a></li>
+          <li><a href="contacto.html">~/contacto</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <p class="nano__cmd" aria-hidden="true">
+        manuel@linux:~$ nano sobre-mi
+      </p>
+
+      <article class="nano" aria-labelledby="sobre-titulo">
+        <header class="nano__topbar">
+          GNU nano 7.2 &nbsp;&nbsp;&nbsp; sobre-mi.html
+        </header>
+
+        <section class="nano__content">
+          <h1 id="sobre-titulo">Sobre mí</h1>
+
+          <figure class="perfil">
+            <img
+              src="img/manuel.jpeg"
+              alt="Manuel Ignacio Olan"
+            />
+            <figcaption>Manuel Ignacio Olan</figcaption>
+          </figure>
+
+          <p>
+            Nací en Puebla, México, pero decidí hacer mi vida en Guadalajara,
+            Jalisco. Estudié la licenciatura en Informática en la Universidad
+            Nacional Autónoma de México en Ciudad de México y actualmente
+            curso el Máster en Ingeniería Web mientras trabajo como Ingeniero
+            de Infraestructura en la Nube de AWS en Guadalajara.
+          </p>
+
+          <p>
+            Me gusta el fútbol, la música, los dispositivos móviles y viajar.
+            Lo que más disfruto de conocer nuevos lugares es su cultura, su
+            gente y su comida — cada rincón del mundo tiene algo único que
+            ofrecer.
+          </p>
+
+          <p>
+            Decidí hacer este máster porque, aunque mi carrera siempre ha sido
+            en infraestructura, me apasiona aprender y ampliar mis
+            herramientas. Soy fan de AWS — Azure es otra historia.
+          </p>
+
+          <p>
+            He viajado bastante por México y esta es mi tercera vez en Europa.
+            Esta vez quise estudiar y conocer de cerca la forma de aprender de
+            España. Y si tenían duda, como buen mexicano, me encanta el
+            picante, la banda, el perreo y el tequila.
+          </p>
+        </section>
+
+        <footer class="nano__statusbar">
+          ^G Ayuda &nbsp;&nbsp; ^X Salir &nbsp;&nbsp; ^O Guardar &nbsp;&nbsp;
+          ^W Buscar
+        </footer>
+      </article>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 Manuel Ignacio Olan</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
