@@ -413,6 +413,27 @@ main audio {
   margin-top: var(--space-sm);
 }
 
+.multimedia {
+  margin-top: var(--space-sm);
+}
+
+.multimedia figcaption {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  margin-top: var(--space-xs);
+}
+
+.multimedia figcaption strong {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.multimedia figcaption p {
+  margin-top: var(--space-xs);
+  margin-bottom: 0;
+}
+
 /* =====================
    Responsive
    ===================== */
