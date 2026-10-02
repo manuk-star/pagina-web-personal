@@ -247,7 +247,7 @@ footer {
   font-family: var(--font-mono);
 }
 
-.nano :is(header, footer) {
+.nano :is(.nano__topbar, .nano__statusbar) {
   background-color: var(--color-surface);
   color: var(--color-muted);
   padding: var(--space-xs) var(--space-sm);
