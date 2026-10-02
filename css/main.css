@@ -189,13 +189,30 @@ footer {
   perspective: 1000px;
 }
 
-.carrusel__track img {
+.carrusel__track figure {
   position: absolute;
   width: 280px;
   height: 360px;
   object-fit: cover;
   transition: transform 0.4s ease, opacity 0.4s ease;
   border-radius: 8px;
+  margin: 0;
+  text-align: center;
+}
+
+.carrusel__track figure img {
+  width: 280px;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.carrusel__track figcaption {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  margin-top: var(--space-xs);
 }
 
 .carrusel__btn {
