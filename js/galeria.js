@@ -1,5 +1,5 @@
 const track = document.querySelector(".carrusel__track");
-const imgs = Array.from(track.children);
+const imgs = Array.from(track.querySelectorAll("figure"));
 const prev = document.querySelector(".carrusel__btn--prev");
 const next = document.querySelector(".carrusel__btn--next");
 
