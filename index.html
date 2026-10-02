@@ -24,9 +24,16 @@
 
     <main>
       <section class="hero" aria-labelledby="hero-title">
-        <p class="hero__prompt" aria-hidden="true">$ whoami<span class="cursor" aria-hidden="true"> |</span></p>
-        <h1 id="hero-title" class="hero__name">Manuel Ignacio Olan</h1>
-        <p class="hero__subtitle">Máster en Ingeniería Web</p>
+        <div class="hero__content">
+          <p class="hero__prompt" aria-hidden="true">$ whoami<span class="cursor" aria-hidden="true"> |</span></p>
+          <h1 id="hero-title" class="hero__name">Manuel Ignacio Olan</h1>
+          <p class="hero__subtitle">Máster en Ingeniería Web</p>
+        </div>
+
+        <figure class="hero__portrait">
+          <img src="img/perfil-terminal.jpeg" alt="Retrato de Manuel Ignacio Olan" />
+          <canvas id="perfil-terminal" aria-hidden="true"></canvas>
+        </figure>
       </section>
     </main>
 
