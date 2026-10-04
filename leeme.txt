@@ -15,6 +15,14 @@ Se utiliza para definir la presentación visual del sitio.
 Se emplean variables CSS, Flexbox, Grid, media queries y diseño
 responsive.
 
+Flexbox y CSS Grid se utilizan para organizar y distribuir los
+elementos de la interfaz. Las media queries permiten adaptar
+dicha distribución a diferentes tamaños de pantalla mediante
+condiciones como min-width y max-width. Por ejemplo, max-width
+permite aplicar determinadas reglas hasta un ancho máximo,
+mientras que min-width permite aplicarlas desde un ancho mínimo.
+También pueden combinarse para definir un rango de tamaños.
+
 JavaScript
 Se utiliza para añadir interactividad al sitio.
 Se emplea para controlar el menú responsive, el carrusel de la
@@ -27,8 +35,10 @@ bibliotecas externas porque el objetivo del trabajo es utilizar
 directamente las tecnologías fundamentales de la Web.
 
 HTML5 permite crear una estructura semántica y accesible.
-CSS3 permite separar la presentación del contenido y crear un
-diseño responsive.
+CSS3 permite separar la presentación del contenido, organizar los
+elementos mediante Flexbox y Grid, y crear un diseño responsive.
+Las media queries permiten adaptar la presentación según el
+tamaño de la pantalla.
 JavaScript permite implementar la interacción necesaria para
 el menú, la galería y el procesamiento de imágenes.
 
