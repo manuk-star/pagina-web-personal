@@ -36,6 +36,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -44,6 +45,7 @@ body {
   font-family: var(--font-sans);
   line-height: 1.6;
   min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
