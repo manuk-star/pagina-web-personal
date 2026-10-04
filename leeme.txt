@@ -70,3 +70,8 @@ El sitio incluye:
 
 Los elementos multimedia se incorporan mediante las etiquetas
 nativas de HTML5 <img>, <video> y <audio>.
+
+
+URL DE DESPLIEGUE
+
+http://32.195.190.171/trabajo2/
