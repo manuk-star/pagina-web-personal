@@ -17,8 +17,12 @@
   </head>
 
   <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <header>
       <nav aria-label="Navegación principal">
+        <a href="index.html" class="nav__logo">
+          <img src="img/logo.png" alt="Inicio - Manuel Ignacio Olan">
+        </a>
         <button
           class="nav__toggle"
           aria-label="Abrir menú"
@@ -28,21 +32,31 @@
         </button>
 
         <ul class="nav__links">
-          <li><a href="index.html">~/inicio</a></li>
+          <li><a href="index.html">/Inicio</a></li>
           <li>
-            <a href="sobre-mi.html" aria-current="page">~/sobre-mi</a>
+            <a href="sobre-mi.html" aria-current="page">/Sobre-mi</a>
           </li>
-          <li><a href="galeria.html">~/galeria</a></li>
-          <li><a href="gustos.html">~/gustos</a></li>
-          <li><a href="contacto.html">~/contacto</a></li>
+          <li><a href="galeria.html">/Galeria</a></li>
+          <li><a href="gustos.html">/Mis-gustos</a></li>
+          <li><a href="contacto.html">/Contacto</a></li>
         </ul>
+        <button class="nav__theme" aria-label="Activar modo claro">☀️</button>
       </nav>
     </header>
 
-    <main>
-      <p class="nano__cmd" aria-hidden="true">
-        manuel@linux:~$ nano sobre-mi
-      </p>
+    <main id="contenido">
+      <nav aria-label="Migas de pan" class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="index.html"><span itemprop="name">Inicio</span></a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name" aria-current="page">Sobre mí</span>
+      <meta itemprop="position" content="2" />
+    </li>
+  </ol>
+</nav>
 
       <div class="nano">
         <div class="nano__topbar">
@@ -61,8 +75,8 @@
             Nací en Puebla, México, pero decidí hacer mi vida en Guadalajara,
             Jalisco. Estudié la licenciatura en Informática en la Universidad
             Nacional Autónoma de México en Ciudad de México y actualmente
-            curso el Máster en Ingeniería Web mientras trabajo como Ingeniero
-            de Infraestructura en la Nube de AWS en Guadalajara.
+            curso el Máster en Ingeniería Web mientras trabajaba como Ingeniero
+            de Infraestructura en la Nube de AWS en Contpaqi Guadalajara.
           </p>
 
           <p>
