@@ -17,12 +17,8 @@
   </head>
 
   <body>
-    <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <header>
       <nav aria-label="Navegación principal">
-        <a href="index.html" class="nav__logo">
-          <img src="img/logo.png" alt="Inicio - Manuel Ignacio Olan">
-        </a>
         <button
           class="nav__toggle"
           aria-label="Abrir menú"
@@ -32,87 +28,75 @@
         </button>
 
         <ul class="nav__links">
-          <li><a href="index.html">/Inicio</a></li>
-          <li><a href="sobre-mi.html">/Sobre mi</a></li>
-          <li><a href="galeria.html">/Galeria</a></li>
+          <li><a href="index.html">~/inicio</a></li>
+          <li><a href="sobre-mi.html">~/sobre-mi</a></li>
+          <li><a href="galeria.html">~/galeria</a></li>
           <li>
-            <a href="gustos.html" aria-current="page">/Mis-gustos</a>
+            <a href="gustos.html" aria-current="page">~/gustos</a>
           </li>
-          <li><a href="contacto.html">/Contacto</a></li>
+          <li><a href="contacto.html">~/contacto</a></li>
         </ul>
-        <button class="nav__theme" aria-label="Activar modo claro">☀️</button>
       </nav>
     </header>
 
-    <main id="contenido">
-      <nav aria-label="Migas de pan" class="breadcrumbs">
-  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <a itemprop="item" href="index.html"><span itemprop="name">Inicio</span></a>
-      <meta itemprop="position" content="1" />
-    </li>
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <span itemprop="name" aria-current="page">Gustos</span>
-      <meta itemprop="position" content="2" />
-    </li>
-  </ol>
-</nav>
+    <main>
       <section aria-labelledby="gustos-titulo">
+        <p class="nano__cmd" aria-hidden="true">
+          manuel@linux:~$ tree gustos/
+        </p>
+
         <h1 id="gustos-titulo">Mis gustos</h1>
 
         <ul class="gustos">
           <li>
-            <details name="categorias-gustos">
-              <summary><span class="gustos__titulo">Tecnología</span><span class="gustos__indicador" aria-hidden="true"></span></summary>
-              <div class="gustos__contenido">
-                <p>Me interesa explorar servicios en la nube y productos tecnológicos.</p>
-                <ul><li>AWS</li><li>Apple</li></ul>
-              </div>
-            </details>
+            <h2>Tecnología</h2>
+            <ul>
+              <li>AWS</li>
+              <li>Apple</li>
+            </ul>
           </li>
 
           <li>
-            <details name="categorias-gustos">
-              <summary><span class="gustos__titulo">Cine y series</span><span class="gustos__indicador" aria-hidden="true"></span></summary>
-              <div class="gustos__contenido">
-                <p>Disfruto la fantasía, la animación, la aventura y la comedia.</p>
-                <ul><li>Harry Potter</li><li>Toy Story</li><li>Piratas del Caribe</li><li>The Big Bang Theory</li></ul>
-              </div>
-            </details>
+            <h2>Cine y series</h2>
+            <ul>
+              <li>Harry Potter</li>
+              <li>Toy Story</li>
+              <li>Piratas del Caribe</li>
+              <li>The Big Bang Theory</li>
+            </ul>
           </li>
 
           <li>
-            <details name="categorias-gustos">
-              <summary><span class="gustos__titulo">Estilo de vida</span><span class="gustos__indicador" aria-hidden="true"></span></summary>
-              <div class="gustos__contenido">
-                <p>Entre mis pequeños placeres están el café, caminar, la música y las zapatillas.</p>
-                <ul><li>Café</li><li>Caminar</li><li>Zapatillas / Tenis</li><li>Música</li></ul>
-              </div>
-            </details>
+            <h2>Estilo de vida</h2>
+            <ul>
+              <li>Café</li>
+              <li>Caminar</li>
+              <li>Zapatillas / Tenis</li>
+              <li>Música</li>
+            </ul>
           </li>
 
           <li>
-            <details name="categorias-gustos">
-              <summary><span class="gustos__titulo">Viajes</span><span class="gustos__indicador" aria-hidden="true"></span></summary>
-              <div class="gustos__contenido">
-                <p>Me gusta descubrir lugares, especialmente en tren, y fijarme en sus edificios e historia.</p>
-                <ul><li>Viajar</li><li>Viajar en tren</li><li>Edificios</li><li>Historia</li></ul>
-              </div>
-            </details>
+            <h2>Viajes</h2>
+            <ul>
+              <li>Viajar</li>
+              <li>Viajar en tren</li>
+              <li>Edificios</li>
+              <li>Historia</li>
+            </ul>
           </li>
 
           <li>
-            <details name="categorias-gustos">
-              <summary><span class="gustos__titulo">Otros</span><span class="gustos__indicador" aria-hidden="true"></span></summary>
-              <div class="gustos__contenido">
-                <p>También disfruto el fútbol, probar comida y conocer sobre autos.</p>
-                <ul><li>Fútbol</li><li>Comida</li><li>Autos</li></ul>
-              </div>
-            </details>
+            <h2>Otros</h2>
+            <ul>
+              <li>Fútbol</li>
+              <li>Comida</li>
+              <li>Autos</li>
+            </ul>
           </li>
         </ul>
 
-        <section class="multimedia__section" aria-labelledby="video-titulo">
+        <section aria-labelledby="video-titulo">
           <h2 id="video-titulo">Un poco de mis intereses</h2>
 
           <figure class="multimedia">
@@ -138,7 +122,7 @@
           </figure>
         </section>
 
-        <section class="multimedia__section" aria-labelledby="podcast-titulo">
+        <section aria-labelledby="podcast-titulo">
           <h2 id="podcast-titulo">Podcast de interés</h2>
 
           <figure class="multimedia">

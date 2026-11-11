@@ -16,40 +16,26 @@
 </script>
   </head>
   <body>
-    <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <header>
       <nav aria-label="Navegación principal">
-        <a href="index.html" class="nav__logo">
-          <img src="img/logo.png" alt="Inicio - Manuel Ignacio Olan">
-        </a>
         <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
         <ul class="nav__links">
-          <li><a href="index.html">/Inicio</a></li>
-          <li><a href="sobre-mi.html">/Sobre mi</a></li>
-          <li><a href="galeria.html" aria-current="page">/Galeria</a></li>
-          <li><a href="gustos.html">/Mis-gustos</a></li>
-          <li><a href="contacto.html">/Contacto</a></li>
+          <li><a href="index.html">~/inicio</a></li>
+          <li><a href="sobre-mi.html">~/sobre-mi</a></li>
+          <li><a href="galeria.html" aria-current="page">~/galeria</a></li>
+          <li><a href="gustos.html">~/gustos</a></li>
+          <li><a href="contacto.html">~/contacto</a></li>
         </ul>
-        <button class="nav__theme" aria-label="Activar modo claro">☀️</button>
       </nav>
     </header>
 
-    <main id="contenido">
-      <nav aria-label="Migas de pan" class="breadcrumbs">
-  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <a itemprop="item" href="index.html"><span itemprop="name">Inicio</span></a>
-      <meta itemprop="position" content="1" />
-    </li>
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <span itemprop="name" aria-current="page">Galería</span>
-      <meta itemprop="position" content="2" />
-    </li>
-  </ol>
-</nav>
+    <main>
       <section aria-labelledby="galeria-titulo">
+        <p class="nano__cmd" aria-hidden="true">manuel@linux:~$ ls galeria/</p>
         <h1 id="galeria-titulo">Galería de viajes</h1>
-        <div class="galeria-grid">
+        <div class="carrusel">
+          <button class="carrusel__btn carrusel__btn--prev" aria-label="Anterior">&#8249;</button>
+          <div class="carrusel__track" role="region" aria-label="Imágenes de viajes">
             <figure>
               <img src="img/3fronteras.jpeg" alt="3 fronteras" >
               <figcaption>3 fronteras</figcaption>
@@ -134,17 +120,15 @@
               <img src="img/unam.jpeg" alt="UNAM" >
               <figcaption>UNAM</figcaption>
             </figure>
+          </div>
+          <button class="carrusel__btn carrusel__btn--next" aria-label="Siguiente">&#8250;</button>
         </div>
-        <div class="galeria-mas" hidden>
-          <button class="galeria-mas__boton" type="button" data-gallery-more>Mostrar más</button>
-        </div>
-        <span class="visually-hidden" aria-live="polite" data-gallery-status></span>
       </section>
     </main>
 
     <footer>
       <p>&copy; 2026 Manuel Ignacio Olan</p>
     </footer>
-    <script src="js/main.js"></script>
+    <script src="js/galeria.js"></script>
   </body>
 </html>

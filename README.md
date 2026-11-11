@@ -25,7 +25,8 @@ El diseño utiliza una estética inspirada en terminales Linux, manteniendo una 
 │   └── main.css
 │
 ├── js/
-│   └── main.js
+│   ├── main.js
+│   └── galeria.js
 │
 ├── img/
 │   └── imágenes utilizadas en el sitio
@@ -66,7 +67,10 @@ La estética visual está inspirada en una interfaz de terminal Linux, con color
 
 JavaScript añade la interacción y el comportamiento dinámico del sitio.
 
-Se utiliza `main.js` para el comportamiento común del sitio, como el menú responsive, el cursor parpadeante de la página principal y el procesamiento de la fotografía mediante Canvas.
+Se utilizan dos archivos JavaScript, separados por responsabilidad:
+
+- `main.js`: comportamiento común del sitio, como el menú responsive, el cursor parpadeante de la página principal y el procesamiento de la fotografía mediante Canvas.
+- `galeria.js`: comportamiento específico del carrusel de fotografías de la galería.
 
 La fotografía de la página principal se procesa mediante la API Canvas para generar una representación visual con el estilo de color de la interfaz terminal.
 
@@ -80,7 +84,7 @@ CSS3 permite separar la presentación del contenido y desarrollar un diseño res
 
 JavaScript permite añadir interactividad manteniendo una implementación sencilla y adecuada para las necesidades del proyecto.
 
-JavaScript se mantiene en un único archivo. En la galería, el botón «Mostrar más» revela las tarjetas por grupos.
+La separación de JavaScript en `main.js` y `galeria.js` evita mezclar comportamiento general del sitio con lógica específica de la galería.
 
 ## 5. Funcionamiento
 
@@ -98,9 +102,16 @@ La información se muestra dentro de una interfaz visual inspirada en el editor 
 
 ### Galería
 
-La galería contiene fotografías de diferentes viajes organizadas en una cuadrícula de tarjetas adaptable.
+La galería contiene fotografías de diferentes viajes.
 
 Cada fotografía se encuentra dentro de un `figure` y dispone de un `figcaption`.
+
+El archivo `galeria.js` controla el carrusel y permite:
+
+- Mostrar la fotografía actual.
+- Cambiar a la fotografía anterior.
+- Cambiar a la fotografía siguiente.
+- Aplicar desplazamiento, escala, rotación y opacidad para crear el efecto visual del carrusel.
 
 ### Gustos
 
