@@ -6,6 +6,26 @@ if (cursor) {
   }, 530);
 }
 
+const themeBtn = document.querySelector(".nav__theme");
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme) {
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  if (themeBtn) themeBtn.setAttribute("aria-label", savedTheme === "light" ? "Activar modo oscuro" : "Activar modo claro");
+  if (themeBtn) themeBtn.textContent = savedTheme === "light" ? "🌙" : "☀️";
+}
+
+if (themeBtn) {
+  themeBtn.addEventListener("click", () => {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const next = isLight ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+    themeBtn.textContent = next === "light" ? "🌙" : "☀️";
+    themeBtn.setAttribute("aria-label", next === "light" ? "Activar modo oscuro" : "Activar modo claro");
+  });
+}
+
 const toggle = document.querySelector(".nav__toggle");
 const navLinks = document.querySelector(".nav__links");
 
@@ -83,4 +103,33 @@ if (portrait && portraitImage && portraitCanvas) {
       processPortrait();
     }
   }
+}
+
+const gallery = document.querySelector(".galeria-grid");
+const loadMore = document.querySelector(".galeria-mas");
+
+if (gallery && loadMore) {
+  const cards = Array.from(gallery.querySelectorAll("figure"));
+  const button = loadMore.querySelector("[data-gallery-more]");
+  const status = document.querySelector("[data-gallery-status]");
+  const batchSize = 6;
+  let visibleCount = Math.min(batchSize, cards.length);
+
+  function updateGallery() {
+    cards.forEach((card, index) => {
+      card.hidden = index >= visibleCount;
+    });
+    loadMore.hidden = cards.length <= batchSize;
+    button.textContent = visibleCount >= cards.length ? "Mostrar menos" : "Mostrar más";
+    status.textContent = `Se muestran ${visibleCount} de ${cards.length} destinos.`;
+  }
+
+  button.addEventListener("click", () => {
+    visibleCount = visibleCount >= cards.length
+      ? Math.min(batchSize, cards.length)
+      : Math.min(visibleCount + batchSize, cards.length);
+    updateGallery();
+  });
+
+  updateGallery();
 }

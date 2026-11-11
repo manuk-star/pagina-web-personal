@@ -5,33 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <meta name="description" content="Contacto de Manuel Ignacio Olan." >
     <meta name="author" content="Manuel Ignacio Olan" >
-    <title>Contacto | Manuel Ignacio Olan</title >
+    <title>Contacto | Manuel Ignacio Olan</title>
     <link rel="stylesheet" href="css/main.css" >
   </head>
   <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <header>
       <nav aria-label="Navegación principal">
+        <a href="index.html" class="nav__logo">
+          <img src="img/logo.png" alt="Inicio - Manuel Ignacio Olan">
+        </a>
         <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
         <ul class="nav__links">
-          <li><a href="index.html">~/inicio</a></li>
-          <li><a href="sobre-mi.html">~/sobre-mi</a></li>
-          <li><a href="galeria.html">~/galeria</a></li>
-          <li><a href="gustos.html">~/gustos</a></li>
-          <li><a href="contacto.html" aria-current="page">~/contacto</a></li>
+          <li><a href="index.html">/Inicio</a></li>
+          <li><a href="sobre-mi.html">/Sobre mi</a></li>
+          <li><a href="galeria.html">/Galeria</a></li>
+          <li><a href="gustos.html">/Mis-gustos</a></li>
+          <li><a href="contacto.html" aria-current="page">Contacto</a></li>
         </ul>
+        <button class="nav__theme" aria-label="Activar modo claro">☀️</button>
       </nav>
     </header>
 
-    <main>
+    <main id="contenido">
+      <nav aria-label="Migas de pan" class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a itemprop="item" href="index.html"><span itemprop="name">Inicio</span></a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name" aria-current="page">Contacto</span>
+      <meta itemprop="position" content="2" />
+    </li>
+  </ol>
+</nav>
       <section class="contacto" aria-labelledby="contacto-title">
-        <p class="nano__cmd" aria-hidden="true">manuel@linux:~$ cat contacto</p>
         <h1 id="contacto-title">Contacto</h1>
         <div class="contacto__info">
           <address>
-            <p>Manuel Ignacio Olan</p>
-            <p><a href="tel:+34607936581">607 936 581</a></p>
-            <p><a href="mailto:UO319212@uniovi.es">UO319212@uniovi.es</a></p>
-            <p>Ubicación: España</p>
+            <p><strong>Nombre:</strong> Manuel Ignacio Olan</p>
+            <p><strong>Teléfono:</strong> <a href="tel:+34607936581">+34 607 936 581</a></p>
+            <p><strong>Correo:</strong> <a href="mailto:UO319212@uniovi.es">UO319212@uniovi.es</a></p>
+            <p><strong>Ubicación:</strong> España</p>
           </address>
 
           <section aria-labelledby="redes-titulo">
@@ -45,6 +61,12 @@
                 >
                   LinkedIn
                 </a>
+              </li>
+              <li>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/manuel.ig2026/" target="_blank" rel="noopener noreferrer">Instagram</a>
               </li>
             </ul>
           </section>
