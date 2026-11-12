@@ -1,4 +1,18 @@
 const cursor = document.querySelector(".cursor");
+const isEnglish = document.documentElement.lang === "en";
+const iconSprite = isEnglish ? "../img/icons.svg" : "img/icons.svg";
+const themeBtn = document.querySelector(".nav__theme");
+
+const lastModified = document.getElementById("last-modified");
+if (lastModified) {
+  lastModified.setAttribute("datetime", "2026-11-12");
+  lastModified.textContent = isEnglish ? "12 November 2026" : "12 de noviembre de 2026";
+}
+
+function setThemeIcon(theme) {
+  const icon = themeBtn?.querySelector("use");
+  if (icon) icon.setAttribute("href", `${iconSprite}#${theme === "light" ? "moon" : "sun"}`);
+}
 
 if (cursor) {
   setInterval(() => {
@@ -6,13 +20,14 @@ if (cursor) {
   }, 530);
 }
 
-const themeBtn = document.querySelector(".nav__theme");
 const savedTheme = localStorage.getItem("theme");
 
 if (savedTheme) {
   document.documentElement.setAttribute("data-theme", savedTheme);
-  if (themeBtn) themeBtn.setAttribute("aria-label", savedTheme === "light" ? "Activar modo oscuro" : "Activar modo claro");
-  if (themeBtn) themeBtn.textContent = savedTheme === "light" ? "🌙" : "☀️";
+  if (themeBtn) themeBtn.setAttribute("aria-label", savedTheme === "light"
+    ? (isEnglish ? "Enable dark mode" : "Activar modo oscuro")
+    : (isEnglish ? "Enable light mode" : "Activar modo claro"));
+  setThemeIcon(savedTheme);
 }
 
 if (themeBtn) {
@@ -21,8 +36,10 @@ if (themeBtn) {
     const next = isLight ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
-    themeBtn.textContent = next === "light" ? "🌙" : "☀️";
-    themeBtn.setAttribute("aria-label", next === "light" ? "Activar modo oscuro" : "Activar modo claro");
+    setThemeIcon(next);
+    themeBtn.setAttribute("aria-label", next === "light"
+      ? (isEnglish ? "Enable dark mode" : "Activar modo oscuro")
+      : (isEnglish ? "Enable light mode" : "Activar modo claro"));
   });
 }
 
@@ -33,7 +50,9 @@ if (toggle && navLinks) {
   toggle.addEventListener("click", () => {
     const open = navLinks.classList.toggle("nav__links--open");
     toggle.setAttribute("aria-expanded", open);
-    toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    toggle.setAttribute("aria-label", open
+      ? (isEnglish ? "Close menu" : "Cerrar menú")
+      : (isEnglish ? "Open menu" : "Abrir menú"));
   });
 }
 
@@ -107,10 +126,42 @@ if (portrait && portraitImage && portraitCanvas) {
 
 const gallery = document.querySelector(".galeria-grid");
 const loadMore = document.querySelector(".galeria-mas");
+const galleryDialog = document.querySelector("[data-gallery-dialog]");
+
+if (gallery && galleryDialog) {
+  const dialogImage = galleryDialog.querySelector("[data-gallery-dialog-image]");
+  const dialogTitle = galleryDialog.querySelector("[data-gallery-dialog-title]");
+  const dialogCaption = galleryDialog.querySelector("[data-gallery-dialog-caption]");
+  const closeDialog = galleryDialog.querySelector("[data-gallery-close]");
+
+  gallery.addEventListener("click", (event) => {
+    const openButton = event.target.closest("[data-gallery-open]");
+    if (!openButton) return;
+
+    const image = openButton.querySelector("img");
+    const caption = image.dataset.imageAlt;
+    dialogImage.src = image.currentSrc || image.src;
+    dialogImage.alt = caption;
+    dialogTitle.textContent = isEnglish
+      ? `Enlarged photo: ${caption}`
+      : `Fotografía ampliada: ${caption}`;
+    dialogCaption.textContent = caption;
+    galleryDialog.showModal();
+    closeDialog.focus();
+  });
+
+  closeDialog.addEventListener("click", () => galleryDialog.close());
+
+  galleryDialog.addEventListener("click", (event) => {
+    if (event.target === galleryDialog) galleryDialog.close();
+  });
+}
 
 if (gallery && loadMore) {
   const cards = Array.from(gallery.querySelectorAll("figure"));
   const button = loadMore.querySelector("[data-gallery-more]");
+  const buttonLabel = button.querySelector("[data-gallery-more-label]");
+  const buttonIcon = button.querySelector("[data-gallery-more-icon] use");
   const status = document.querySelector("[data-gallery-status]");
   const batchSize = 6;
   let visibleCount = Math.min(batchSize, cards.length);
@@ -120,8 +171,14 @@ if (gallery && loadMore) {
       card.hidden = index >= visibleCount;
     });
     loadMore.hidden = cards.length <= batchSize;
-    button.textContent = visibleCount >= cards.length ? "Mostrar menos" : "Mostrar más";
-    status.textContent = `Se muestran ${visibleCount} de ${cards.length} destinos.`;
+    const showingAll = visibleCount >= cards.length;
+    buttonLabel.textContent = showingAll
+      ? (isEnglish ? "Show fewer" : "Mostrar menos")
+      : (isEnglish ? "Show more" : "Mostrar más");
+    buttonIcon.setAttribute("href", `${iconSprite}#${showingAll ? "chevron-up" : "chevron-down"}`);
+    status.textContent = isEnglish
+      ? `Showing ${visibleCount} of ${cards.length} destinations.`
+      : `Se muestran ${visibleCount} de ${cards.length} destinos.`;
   }
 
   button.addEventListener("click", () => {

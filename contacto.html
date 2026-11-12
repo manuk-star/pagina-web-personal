@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <meta name="description" content="Contacto de Manuel Ignacio Olan." >
     <meta name="author" content="Manuel Ignacio Olan" >
+    <link rel="alternate" hreflang="es" href="contacto.html">
+    <link rel="alternate" hreflang="en" href="en/contacto.html">
     <title>Contacto | Manuel Ignacio Olan</title>
     <link rel="stylesheet" href="css/main.css" >
     <script type="text/javascript">
@@ -31,13 +33,16 @@
         </a>
         <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
         <ul class="nav__links">
-          <li><a href="index.html">/Inicio</a></li>
-          <li><a href="sobre-mi.html">/Sobre mi</a></li>
-          <li><a href="galeria.html">/Galeria</a></li>
-          <li><a href="gustos.html">/Mis-gustos</a></li>
-          <li><a href="contacto.html" aria-current="page">/Contacto</a></li>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre-mi.html">Sobre mí</a></li>
+          <li><a href="galeria.html">Galería</a></li>
+          <li><a href="gustos.html">Mis gustos</a></li>
+          <li><a href="contacto.html" aria-current="page">Contacto</a></li>
         </ul>
-        <button class="nav__theme" aria-label="Activar modo claro">☀️</button>
+        <div class="nav__actions">
+          <div class="language-switch" role="group" aria-label="Idioma"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#globe"></use></svg><span lang="es" aria-current="true">ES</span><span aria-hidden="true">/</span><a href="en/contacto.html" lang="en" hreflang="en" aria-label="Ver esta página en inglés">EN</a></div>
+          <button class="nav__theme" aria-label="Activar modo claro"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#sun"></use></svg></button>
+        </div>
       </nav>
     </header>
 
@@ -58,11 +63,25 @@
         <h1 id="contacto-title">Contacto</h1>
         <div class="contacto__info">
           <address>
-            <p><strong>Nombre:</strong> Manuel Ignacio Olan</p>
-            <p><strong>Teléfono:</strong> <a href="tel:+34607936581">+34 607 936 581</a></p>
-            <p><strong>Correo:</strong> <a href="mailto:UO319212@uniovi.es">UO319212@uniovi.es</a></p>
-            <p><strong>Ubicación:</strong> España</p>
+            <p><strong><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#user"></use></svg> Nombre:</strong><span>Manuel Ignacio Olan</span></p>
+            <p><strong><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#phone"></use></svg> Teléfono:</strong><span><a href="tel:+34607936581">+34 607 936 581</a></span></p>
+            <p><strong><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#mail"></use></svg> Correo:</strong><span><a href="mailto:UO319212@uniovi.es">UO319212@uniovi.es</a></span></p>
+            <p><strong><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#pin"></use></svg> Ubicación:</strong><span>España</span></p>
           </address>
+
+          <section aria-labelledby="avales-titulo">
+            <h2 id="avales-titulo">Referencias</h2>
+            <ul>
+              <li>
+                <address>
+                  <strong>Laura Vianey Oropeza Delgado</strong>
+                  <p>Líder de Beneficios y Compensaciones<br>Computación en Acción, S.A. de C.V. (CONTPAQi)</p>
+                  <p>Guadalajara, Jalisco, México</p>
+                  <a href="mailto:laura.oropeza@contpaqi.com">laura.oropeza@contpaqi.com</a>
+                </address>
+              </li>
+            </ul>
+          </section>
 
           <section aria-labelledby="redes-titulo">
             <h2 id="redes-titulo">Redes sociales</h2>
@@ -89,7 +108,7 @@
     </main>
 
     <footer>
-      <p>&copy; 2026 Manuel Ignacio Olan</p>
+      <p>&copy; 2026 Manuel Ignacio Olan</p><p class="footer__update"><small>Última actualización: <time id="last-modified"></time></small></p>
     </footer>
 
     <script src="js/main.js"></script>

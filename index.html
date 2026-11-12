@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <meta name="description" content="Sitio web personal de Manuel Ignacio Olan, Máster en Ingeniería Web." >
     <meta name="author" content="Manuel Ignacio Olan" >
+    <link rel="alternate" hreflang="es" href="index.html">
+    <link rel="alternate" hreflang="en" href="en/index.html">
     <title>Manuel Ignacio Olan</title>
     <link rel="stylesheet" href="css/main.css" >
     <script type="text/javascript">
@@ -30,13 +32,16 @@
         </a>
         <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
         <ul class="nav__links">
-          <li><a href="index.html" aria-current="page">/Inicio</a></li>
-          <li><a href="sobre-mi.html">/Sobre-mi</a></li>
-          <li><a href="galeria.html">/Galeria</a></li>
-          <li><a href="gustos.html">/Mis-gustos</a></li>
-          <li><a href="contacto.html">/Contacto</a></li>
+          <li><a href="index.html" aria-current="page">Inicio</a></li>
+          <li><a href="sobre-mi.html">Sobre mí</a></li>
+          <li><a href="galeria.html">Galería</a></li>
+          <li><a href="gustos.html">Mis gustos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
         </ul>
-        <button class="nav__theme" aria-label="Activar modo claro">☀️</button>
+        <div class="nav__actions">
+          <div class="language-switch" role="group" aria-label="Idioma"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#globe"></use></svg><span lang="es" aria-current="true">ES</span><span aria-hidden="true">/</span><a href="en/index.html" lang="en" hreflang="en" aria-label="Ver esta página en inglés">EN</a></div>
+          <button class="nav__theme" aria-label="Activar modo claro"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#sun"></use></svg></button>
+        </div>
       </nav>
     </header>
 
@@ -56,7 +61,7 @@
     </main>
 
     <footer>
-      <p>&copy; 2026 Manuel Ignacio Olan</p>
+      <p>&copy; 2026 Manuel Ignacio Olan</p><p class="footer__update"><small>Última actualización: <time id="last-modified"></time></small></p>
     </footer>
 
     <script src="js/main.js"></script>
