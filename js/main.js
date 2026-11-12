@@ -61,7 +61,7 @@ const portraitImage = portrait?.querySelector("img");
 const portraitCanvas = document.querySelector("#perfil-terminal");
 
 if (portrait && portraitImage && portraitCanvas) {
-  const context = portraitCanvas.getContext("2d");
+  const context = portraitCanvas.getContext("2d", { willReadFrequently: true });
 
   if (context) {
     const processPortrait = () => {
