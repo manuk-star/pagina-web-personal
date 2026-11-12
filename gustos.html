@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <meta name="description" content="Gustos de Manuel Ignacio Olan.">
     <meta name="author" content="Manuel Ignacio Olan" >
+    <link rel="alternate" hreflang="es" href="gustos.html">
+    <link rel="alternate" hreflang="en" href="en/gustos.html">
     <title>Gustos | Manuel Ignacio Olan</title>
     <link rel="stylesheet" href="css/main.css" >
     <script type="text/javascript">
@@ -38,15 +40,18 @@
         </button>
 
         <ul class="nav__links">
-          <li><a href="index.html">/Inicio</a></li>
-          <li><a href="sobre-mi.html">/Sobre mi</a></li>
-          <li><a href="galeria.html">/Galeria</a></li>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre-mi.html">Sobre mí</a></li>
+          <li><a href="galeria.html">Galería</a></li>
           <li>
-            <a href="gustos.html" aria-current="page">/Mis-gustos</a>
+            <a href="gustos.html" aria-current="page">Mis gustos</a>
           </li>
-          <li><a href="contacto.html">/Contacto</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
         </ul>
-        <button class="nav__theme" aria-label="Activar modo claro">☀️</button>
+        <div class="nav__actions">
+          <div class="language-switch" role="group" aria-label="Idioma"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#globe"></use></svg><span lang="es" aria-current="true">ES</span><span aria-hidden="true">/</span><a href="en/gustos.html" lang="en" hreflang="en" aria-label="Ver esta página en inglés">EN</a></div>
+          <button class="nav__theme" aria-label="Activar modo claro"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#sun"></use></svg></button>
+        </div>
       </nav>
     </header>
 
@@ -66,13 +71,15 @@
       <section aria-labelledby="gustos-titulo">
         <h1 id="gustos-titulo">Mis gustos</h1>
 
+        <p class="ayuda-contextual">Selecciona una categoría para ver más detalles. Puedes abrir una sola a la vez.</p>
+
         <ul class="gustos">
           <li>
             <details name="categorias-gustos">
               <summary><span class="gustos__titulo">Tecnología</span><span class="gustos__indicador" aria-hidden="true"></span></summary>
               <div class="gustos__contenido">
                 <p>Me interesa explorar servicios en la nube y productos tecnológicos.</p>
-                <ul><li>AWS</li><li>Apple</li></ul>
+                <ul><li>AWS</li><li>Azure</li><li>Servidores</li><li>Apple</li></ul>
               </div>
             </details>
           </li>
@@ -92,7 +99,7 @@
               <summary><span class="gustos__titulo">Estilo de vida</span><span class="gustos__indicador" aria-hidden="true"></span></summary>
               <div class="gustos__contenido">
                 <p>Entre mis pequeños placeres están el café, caminar, la música y las zapatillas.</p>
-                <ul><li>Café</li><li>Caminar</li><li>Zapatillas / Tenis</li><li>Música</li></ul>
+                <ul><li>Café</li><li>Caminar y recorrer ciudades, bosques o playa</li><li>Zapatillas / Tenis</li><li>Música</li></ul>
               </div>
             </details>
           </li>
@@ -101,25 +108,47 @@
             <details name="categorias-gustos">
               <summary><span class="gustos__titulo">Viajes</span><span class="gustos__indicador" aria-hidden="true"></span></summary>
               <div class="gustos__contenido">
-                <p>Me gusta descubrir lugares, especialmente en tren, y fijarme en sus edificios e historia.</p>
-                <ul><li>Viajar</li><li>Viajar en tren</li><li>Edificios</li><li>Historia</li></ul>
+                <p>He recorrido México, Sudamérica y Europa. Me gusta viajar en tren, explorar la arquitectura y conocer la historia de cada lugar.</p>
+                <p>Visitados:</p>
+                <ul>
+                  <li>EE.UU.</li>
+                  <li>Perú</li>
+                  <li>Colombia</li>
+                  <li>España</li>
+                  <li>Francia</li>
+                  <li>Luxemburgo</li>
+                  <li>Países Bajos</li>
+                  <li>Alemania</li>
+                  <li>Inglaterra</li>
+                  <li>Bélgica</li>
+                  <li>República Checa</li>
+                </ul>
+                <p>Pendientes:</p>
+                <ul>
+                  <li>Egipto</li>
+                  <li>Irlanda</li>
+                  <li>China</li>
+                  <li>Corea</li>
+                  <li>Rusia</li>
+                </ul>
               </div>
             </details>
           </li>
 
           <li>
             <details name="categorias-gustos">
-              <summary><span class="gustos__titulo">Otros</span><span class="gustos__indicador" aria-hidden="true"></span></summary>
+              <summary><span class="gustos__titulo">Más gustos</span><span class="gustos__indicador" aria-hidden="true"></span></summary>
               <div class="gustos__contenido">
                 <p>También disfruto el fútbol, probar comida y conocer sobre autos.</p>
-                <ul><li>Fútbol</li><li>Comida</li><li>Autos</li></ul>
+                <ul><li>Fútbol (PSG, Pumas, FC Barcelona)</li><li>Comida</li><li>Autos</li></ul>
               </div>
             </details>
           </li>
         </ul>
 
         <section class="multimedia__section" aria-labelledby="video-titulo">
-          <h2 id="video-titulo">Un poco de mis intereses</h2>
+          <h2 id="video-titulo"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#video"></use></svg> Un poco de mis intereses</h2>
+          <p class="ayuda-contextual">Usa los controles del reproductor para iniciar, pausar o ajustar el volumen.</p>
 
           <figure class="multimedia">
             <video controls width="640">
@@ -145,7 +174,8 @@
         </section>
 
         <section class="multimedia__section" aria-labelledby="podcast-titulo">
-          <h2 id="podcast-titulo">Podcast de interés</h2>
+          <h2 id="podcast-titulo"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#headphones"></use></svg> Podcast de interés</h2>
+          <p class="ayuda-contextual">Usa los controles para reproducir, pausar o cambiar el volumen del audio.</p>
 
           <figure class="multimedia">
             <audio controls>
@@ -174,7 +204,7 @@
     </main>
 
     <footer>
-      <p>&copy; 2026 Manuel Ignacio Olan</p>
+      <p>&copy; 2026 Manuel Ignacio Olan</p><p class="footer__update"><small>Última actualización: <time id="last-modified"></time></small></p>
     </footer>
 
     <script src="js/main.js"></script>

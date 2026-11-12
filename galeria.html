@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <meta name="description" content="Galería de viajes de Manuel Ignacio Olan." >
     <meta name="author" content="Manuel Ignacio Olan" >
+    <link rel="alternate" hreflang="es" href="galeria.html">
+    <link rel="alternate" hreflang="en" href="en/galeria.html">
     <title>Galería | Manuel Ignacio Olan</title>
     <link rel="stylesheet" href="css/main.css" >
     <script type="text/javascript">
@@ -30,13 +32,16 @@
         </a>
         <button class="nav__toggle" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
         <ul class="nav__links">
-          <li><a href="index.html">/Inicio</a></li>
-          <li><a href="sobre-mi.html">/Sobre mi</a></li>
-          <li><a href="galeria.html" aria-current="page">/Galeria</a></li>
-          <li><a href="gustos.html">/Mis-gustos</a></li>
-          <li><a href="contacto.html">/Contacto</a></li>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre-mi.html">Sobre mí</a></li>
+          <li><a href="galeria.html" aria-current="page">Galería</a></li>
+          <li><a href="gustos.html">Mis gustos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
         </ul>
-        <button class="nav__theme" aria-label="Activar modo claro">☀️</button>
+        <div class="nav__actions">
+          <div class="language-switch" role="group" aria-label="Idioma"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#globe"></use></svg><span lang="es" aria-current="true">ES</span><span aria-hidden="true">/</span><a href="en/galeria.html" lang="en" hreflang="en" aria-label="Ver esta página en inglés">EN</a></div>
+          <button class="nav__theme" aria-label="Activar modo claro"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#sun"></use></svg></button>
+        </div>
       </nav>
     </header>
 
@@ -55,101 +60,112 @@
 </nav>
       <section aria-labelledby="galeria-titulo">
         <h1 id="galeria-titulo">Galería de viajes</h1>
+        <p class="ayuda-contextual"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#expand"></use></svg> Selecciona una foto para ampliarla. Puedes cerrar la vista con Escape o con el botón «Cerrar imagen».</p>
         <div class="galeria-grid">
             <figure>
-              <img src="img/3fronteras.jpeg" alt="3 fronteras" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: 3 fronteras"><img src="img/3fronteras.jpeg" alt="" data-image-alt="3 fronteras"></button>
               <figcaption>3 fronteras</figcaption>
             </figure>
             <figure>
-              <img src="img/barcelona.jpeg" alt="Barcelona" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Barcelona"><img src="img/barcelona.jpeg" alt="" data-image-alt="Barcelona"></button>
               <figcaption>Barcelona</figcaption>
             </figure>
             <figure>
-              <img src="img/berlin.jpeg" alt="Berlín" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Berlín"><img src="img/berlin.jpeg" alt="" data-image-alt="Berlín"></button>
               <figcaption>Berlín</figcaption>
             </figure>
             <figure>
-              <img src="img/bogota.jpeg" alt="Bogotá" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Bogotá"><img src="img/bogota.jpeg" alt="" data-image-alt="Bogotá"></button>
               <figcaption>Bogotá</figcaption>
             </figure>
             <figure>
-              <img src="img/bruselas.jpeg" alt="Bruselas" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Bruselas"><img src="img/bruselas.jpeg" alt="" data-image-alt="Bruselas"></button>
               <figcaption>Bruselas</figcaption>
             </figure>
             <figure>
-              <img src="img/cartagena.jpeg" alt="Cartagena" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Cartagena"><img src="img/cartagena.jpeg" alt="" data-image-alt="Cartagena"></button>
               <figcaption>Cartagena</figcaption>
             </figure>
             <figure>
-              <img src="img/cem.jpeg" alt="CEM" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: L.A"><img src="img/cem.jpeg" alt="" data-image-alt="L.A"></button>
               <figcaption>L.A</figcaption>
             </figure>
             <figure>
-              <img src="img/Colonia.jpeg" alt="Colonia" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Colonia"><img src="img/Colonia.jpeg" alt="" data-image-alt="Colonia"></button>
               <figcaption>Colonia</figcaption>
             </figure>
             <figure>
-              <img src="img/GDL1.jpeg" alt="Guadalajara" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Guadalajara"><img src="img/GDL1.jpeg" alt="" data-image-alt="Guadalajara"></button>
               <figcaption>Guadalajara</figcaption>
             </figure>
             <figure>
-              <img src="img/guanajuato.jpeg" alt="Guanajuato" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Guanajuato"><img src="img/guanajuato.jpeg" alt="" data-image-alt="Guanajuato"></button>
               <figcaption>Guanajuato</figcaption>
             </figure>
             <figure>
-              <img src="img/lieja.jpeg" alt="Lieja" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Lieja"><img src="img/lieja.jpeg" alt="" data-image-alt="Lieja"></button>
               <figcaption>Lieja</figcaption>
             </figure>
             <figure>
-              <img src="img/Londres1.jpeg" alt="Londres" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Londres"><img src="img/Londres1.jpeg" alt="" data-image-alt="Londres"></button>
               <figcaption>Londres</figcaption>
             </figure>
             <figure>
-              <img src="img/Luxenburgo.jpeg" alt="Luxemburgo" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Luxemburgo"><img src="img/Luxenburgo.jpeg" alt="" data-image-alt="Luxemburgo"></button>
               <figcaption>Luxemburgo</figcaption>
             </figure>
             <figure>
-              <img src="img/machupicchu.jpeg" alt="Machu Picchu" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Machu Picchu"><img src="img/machupicchu.jpeg" alt="" data-image-alt="Machu Picchu"></button>
               <figcaption>Machu Picchu</figcaption>
             </figure>
             <figure>
-              <img src="img/medellin.jpeg" alt="Medellín" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Medellín"><img src="img/medellin.jpeg" alt="" data-image-alt="Medellín"></button>
               <figcaption>Medellín</figcaption>
             </figure>
             <figure>
-              <img src="img/munich.jpeg" alt="Múnich" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Múnich"><img src="img/munich.jpeg" alt="" data-image-alt="Múnich"></button>
               <figcaption>Múnich</figcaption>
             </figure>
             <figure>
-              <img src="img/paris.jpeg" alt="París" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: París"><img src="img/paris.jpeg" alt="" data-image-alt="París"></button>
               <figcaption>París</figcaption>
             </figure>
             <figure>
-              <img src="img/PB1.jpeg" alt="Maastricht" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Maastricht"><img src="img/PB1.jpeg" alt="" data-image-alt="Maastricht"></button>
               <figcaption>Maastricht</figcaption>
             </figure>
             <figure>
-              <img src="img/praga.jpeg" alt="Praga" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Praga"><img src="img/praga.jpeg" alt="" data-image-alt="Praga"></button>
               <figcaption>Praga</figcaption>
             </figure>
             <figure>
-              <img src="img/PSV.jpeg" alt="Eindhoven" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: Eindhoven"><img src="img/PSV.jpeg" alt="" data-image-alt="Eindhoven"></button>
               <figcaption>Eindhoven</figcaption>
             </figure>
             <figure>
-              <img src="img/unam.jpeg" alt="UNAM" >
+              <button class="galeria-imagen" type="button" data-gallery-open aria-label="Ampliar foto: UNAM"><img src="img/unam.jpeg" alt="" data-image-alt="UNAM"></button>
               <figcaption>UNAM</figcaption>
             </figure>
         </div>
         <div class="galeria-mas" hidden>
-          <button class="galeria-mas__boton" type="button" data-gallery-more>Mostrar más</button>
+          <button class="galeria-mas__boton" type="button" data-gallery-more><svg class="icon" aria-hidden="true" focusable="false" data-gallery-more-icon><use href="img/icons.svg#chevron-down"></use></svg><span data-gallery-more-label>Mostrar más</span></button>
         </div>
-        <span class="visually-hidden" aria-live="polite" data-gallery-status></span>
+        <p class="galeria-estado" role="status" aria-live="polite" data-gallery-status></p>
       </section>
+      <dialog class="galeria-dialog" data-gallery-dialog aria-labelledby="galeria-dialog-titulo">
+        <div class="galeria-dialog__contenido">
+          <button class="galeria-dialog__cerrar" type="button" data-gallery-close>
+            <span aria-hidden="true">&times;</span><span class="visually-hidden">Cerrar imagen</span>
+          </button>
+          <h2 class="visually-hidden" id="galeria-dialog-titulo" data-gallery-dialog-title>Imagen ampliada</h2>
+          <img class="galeria-dialog__imagen" data-gallery-dialog-image alt="">
+          <p class="galeria-dialog__leyenda" data-gallery-dialog-caption></p>
+        </div>
+      </dialog>
     </main>
 
     <footer>
-      <p>&copy; 2026 Manuel Ignacio Olan</p>
+      <p>&copy; 2026 Manuel Ignacio Olan</p><p class="footer__update"><small>Última actualización: <time id="last-modified"></time></small></p>
     </footer>
     <script src="js/main.js"></script>
   </body>

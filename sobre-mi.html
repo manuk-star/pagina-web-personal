@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <meta name="description" content="Sobre mí - Manuel Ignacio Olan." >
     <meta name="author" content="Manuel Ignacio Olan" >
+    <link rel="alternate" hreflang="es" href="sobre-mi.html">
+    <link rel="alternate" hreflang="en" href="en/sobre-mi.html">
     <title>Sobre mí | Manuel Ignacio Olan</title>
     <link rel="stylesheet" href="css/main.css" >
     <script type="text/javascript">
@@ -38,15 +40,18 @@
         </button>
 
         <ul class="nav__links">
-          <li><a href="index.html">/Inicio</a></li>
+          <li><a href="index.html">Inicio</a></li>
           <li>
-            <a href="sobre-mi.html" aria-current="page">/Sobre-mi</a>
+            <a href="sobre-mi.html" aria-current="page">Sobre mí</a>
           </li>
-          <li><a href="galeria.html">/Galeria</a></li>
-          <li><a href="gustos.html">/Mis-gustos</a></li>
-          <li><a href="contacto.html">/Contacto</a></li>
+          <li><a href="galeria.html">Galería</a></li>
+          <li><a href="gustos.html">Mis gustos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
         </ul>
-        <button class="nav__theme" aria-label="Activar modo claro">☀️</button>
+        <div class="nav__actions">
+          <div class="language-switch" role="group" aria-label="Idioma"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#globe"></use></svg><span lang="es" aria-current="true">ES</span><span aria-hidden="true">/</span><a href="en/sobre-mi.html" lang="en" hreflang="en" aria-label="Ver esta página en inglés">EN</a></div>
+          <button class="nav__theme" aria-label="Activar modo claro"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#sun"></use></svg></button>
+        </div>
       </nav>
     </header>
 
@@ -64,7 +69,7 @@
   </ol>
 </nav>
 
-      <div class="nano">
+      <article class="nano">
         <div class="nano__topbar">
           GNU nano 7.2 &nbsp;&nbsp;&nbsp; sobre-mi.html
         </div>
@@ -80,29 +85,50 @@
           <p>
             Nací en Puebla, México, pero decidí hacer mi vida en Guadalajara,
             Jalisco. Estudié la licenciatura en Informática en la Universidad
-            Nacional Autónoma de México en Ciudad de México y actualmente
-            curso el Máster en Ingeniería Web mientras trabajaba como Ingeniero
-            de Infraestructura en la Nube de AWS en Contpaqi Guadalajara.
+            Nacional Autónoma de México (UNAM), en Ciudad de México, y actualmente
+            curso el Máster Universitario en Ingeniería Web en la Universidad de
+            Oviedo, España.
           </p>
 
           <p>
-            Me gusta el fútbol, la música, los dispositivos móviles y viajar.
-            Lo que más disfruto de conocer nuevos lugares es su cultura, su
-            gente y su comida — cada rincón del mundo tiene algo único que
-            ofrecer.
+            Antes de venir a España, trabajé como Ingeniero de Infraestructura
+            en la Nube de AWS en CONTPAQi, Guadalajara. Entre mis principales
+            responsabilidades estaba mantener operativa la infraestructura en la
+            nube de los distintos productos de la compañía, evaluar nuevas
+            arquitecturas y buscar oportunidades de optimización de costes
+            mediante prácticas FinOps. También desarrollaba tareas de DevOps
+            orientadas a automatizar y mejorar los procesos de despliegue.
           </p>
 
           <p>
-            Decidí hacer este máster porque, aunque mi carrera siempre ha sido
-            en infraestructura, me apasiona aprender y ampliar mis
-            herramientas. Soy fan de AWS — Azure es otra historia.
+            Me gustan el fútbol, la música, los dispositivos móviles y, sobre
+            todo, viajar. Lo que más disfruto de conocer nuevos lugares es
+            descubrir su cultura, convivir con su gente y probar su gastronomía.
+            Cada país tiene algo único que ofrecer y siempre hay alguna
+            particularidad que consigue sorprenderme.
           </p>
 
           <p>
-            He viajado bastante por México y esta es mi tercera vez en Europa.
-            Esta vez quise estudiar y conocer de cerca la forma de aprender de
-            España. Y si tenían duda, como buen mexicano, me encanta el
-            picante, la banda, el perreo y el tequila.
+            Decidí cursar este máster porque, aunque mi trayectoria profesional
+            siempre ha estado ligada a la infraestructura tecnológica, me
+            apasiona aprender y ampliar mis conocimientos. Soy un gran
+            entusiasta de AWS —Azure es otra historia, jajaja—, pero considero
+            que nunca hay que dejar de aprender. Además, el desarrollo de
+            software era un área en la que quería profundizar y adquirir nuevas
+            herramientas.
+          </p>
+
+          <p>
+            He recorrido buena parte de México y esta es mi tercera visita a
+            Europa. En esta ocasión decidí dar un paso más: no solo quería
+            conocer nuevos lugares, sino también estudiar y experimentar de
+            cerca el sistema educativo y la cultura de España.
+          </p>
+
+          <p>
+            Y por si quedaba alguna duda, como buen mexicano, me encanta el
+            picante, la banda, el perreo y, por supuesto, el tequila.
+            ¡Que no se pierdan las buenas costumbres!
           </p>
         </div>
 
@@ -110,11 +136,11 @@
           ^G Ayuda &nbsp;&nbsp; ^X Salir &nbsp;&nbsp; ^O Guardar &nbsp;&nbsp;
           ^W Buscar
         </div>
-      </div>
+      </article>
     </main>
 
     <footer>
-      <p>&copy; 2026 Manuel Ignacio Olan</p>
+      <p>&copy; 2026 Manuel Ignacio Olan</p><p class="footer__update"><small>Última actualización: <time id="last-modified"></time></small></p>
     </footer>
 
     <script src="js/main.js"></script>
