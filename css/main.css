@@ -22,6 +22,13 @@
   --max-width: 900px;
   --header-offset: 4.5rem;
   --transition: 0.2s ease;
+
+  --radius-sm: 0.45rem;
+  --radius-md: 0.6rem;
+  --radius-lg: 0.9rem;
+  --radius-pill: 999px;
+
+  --color-border-subtle: rgb(230 237 243 / 18%);
 }
 
 [data-theme="light"] {
@@ -131,7 +138,7 @@ header nav {
   justify-content: initial;
   padding: 0.35rem var(--space-md);
   border: 0;
-  border-bottom: 1px solid rgb(230 237 243 / 18%);
+  border-bottom: 1px solid var(--color-border-subtle);
   border-radius: 0;
   background: transparent;
   box-shadow: none;
@@ -227,8 +234,8 @@ nav {
   align-items: center;
   gap: 0.35rem;
   padding: 0.22rem 0.5rem;
-  border: 1px solid rgb(230 237 243 / 18%);
-  border-radius: 999px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
   background: rgb(13 17 23 / 48%);
   color: var(--color-muted);
   font-family: var(--font-mono);
@@ -254,7 +261,7 @@ nav {
   flex-shrink: 0;
 }
 
-@media (min-width: 601px) {
+@media (min-width: 769px) {
   .nav__links,
   .nav__actions {
     min-height: 2.25rem;
@@ -397,7 +404,7 @@ footer {
   overflow: hidden;
   margin: 0;
   border: 1px solid var(--color-border);
-  border-radius: 0.8rem;
+  border-radius: var(--radius-lg);
   background: var(--color-surface);
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
@@ -431,7 +438,7 @@ footer {
   padding: 0;
   overflow: auto;
   border: 1px solid var(--color-border);
-  border-radius: 0.9rem;
+  border-radius: var(--radius-lg);
   background: var(--color-surface);
   color: var(--color-text);
 }
@@ -503,7 +510,7 @@ footer {
   gap: 0.45rem;
   padding: 0.65rem 1.2rem;
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-surface);
   color: var(--color-primary);
   font: inherit;
@@ -552,6 +559,20 @@ footer {
   .galeria-grid figure {
     transition: none;
   }
+}
+
+/* =====================
+   Card accent — patrón reutilizable
+   border izquierdo de acento + fondo surface
+   Uso: agregar clase .card--accent al elemento
+   ===================== */
+
+.card--accent {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
 }
 
 /* =====================
@@ -616,11 +637,6 @@ footer {
   align-items: stretch;
   gap: 1rem;
   width: min(100%, 34rem);
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-accent);
-  border-radius: 0.6rem;
-  background: var(--color-surface);
   text-align: left;
 }
 
@@ -713,7 +729,7 @@ footer {
   padding: 0.9rem 1rem;
   border: 1px solid var(--color-border);
   border-left: 3px solid var(--color-accent);
-  border-radius: 0.6rem;
+  border-radius: var(--radius-md);
   background: var(--color-surface);
   transition: border-color var(--transition), transform var(--transition);
 }
@@ -834,11 +850,6 @@ footer {
 .multimedia__section {
   width: min(100%, 640px);
   margin: var(--space-lg) auto 0;
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-accent);
-  border-radius: 0.6rem;
-  background: var(--color-surface);
 }
 
 .multimedia__section h2 {
@@ -873,7 +884,7 @@ main video {
   height: auto;
   margin: 0 auto;
   border: 1px solid var(--color-border);
-  border-radius: 0.45rem;
+  border-radius: var(--radius-sm);
 }
 
 main audio {
@@ -908,14 +919,15 @@ main audio {
    Responsive
    ===================== */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   header nav {
     display: flex;
     width: calc(100% - 1.5rem);
     max-width: var(--max-width);
     gap: 0.5rem;
     flex-wrap: wrap;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: flex-start;
     padding: 0.65rem 1rem;
   }
 
@@ -929,7 +941,6 @@ main audio {
 
   .nav__links {
     display: none;
-    order: 1;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
@@ -945,8 +956,25 @@ main audio {
     display: flex;
   }
 
-  .nav__actions {
+  /* Nav mobile:
+     fila 1 → logo (0) | toggle (2, empujado a la derecha con margin-left auto) | actions (3)
+     fila 2 → links (4, flex-basis 100% los manda abajo al abrir el menú)
+  */
+  .nav__logo {
     order: 0;
+  }
+
+  .nav__toggle {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .nav__actions {
+    order: 3;
+  }
+
+  .nav__links {
+    order: 4;
   }
 
   .hero {
