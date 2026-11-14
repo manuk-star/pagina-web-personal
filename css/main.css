@@ -254,7 +254,7 @@ nav {
   flex-shrink: 0;
 }
 
-@media (min-width: 601px) {
+@media (min-width: 769px) {
   .nav__links,
   .nav__actions {
     min-height: 2.25rem;
@@ -908,14 +908,15 @@ main audio {
    Responsive
    ===================== */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   header nav {
     display: flex;
     width: calc(100% - 1.5rem);
     max-width: var(--max-width);
     gap: 0.5rem;
     flex-wrap: wrap;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: flex-start;
     padding: 0.65rem 1rem;
   }
 
@@ -929,7 +930,6 @@ main audio {
 
   .nav__links {
     display: none;
-    order: 1;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
@@ -945,8 +945,21 @@ main audio {
     display: flex;
   }
 
-  .nav__actions {
+  .nav__logo {
     order: 0;
+  }
+
+  .nav__toggle {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .nav__actions {
+    order: 3;
+  }
+
+  .nav__links {
+    order: 4;
   }
 
   .hero {
