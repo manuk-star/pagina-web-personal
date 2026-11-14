@@ -8,7 +8,7 @@
   --color-border: #30363d;
   --color-primary: #58a6ff;
   --color-text: #e6edf3;
-  --color-muted: #8b949e;
+  --color-muted: #9ba5b0;
   --color-accent: #3fb950;
 
   --font-mono: "Courier New", Courier, monospace;
@@ -37,7 +37,7 @@
   --color-border: #d0d7de;
   --color-primary: #0969da;
   --color-text: #1f2328;
-  --color-muted: #656d76;
+  --color-muted: #5a6270;
   --color-accent: #1a7f37;
 }
 
@@ -125,6 +125,7 @@ header {
   right: 0;
   z-index: 100;
   background: rgb(13 17 23 / 38%);
+  /* Verificado: prefijo -webkit- necesario para Safari */
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   backdrop-filter: blur(24px) saturate(160%);
 }
@@ -142,6 +143,7 @@ header nav {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+  /* Verificado: prefijo -webkit- necesario para Safari */
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
@@ -379,7 +381,7 @@ footer {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(0, 0, 0, 0); /* Verificado: clip deprecated pero requerido por patrón estándar de accesibilidad visually-hidden */
   white-space: nowrap;
   border: 0;
 }
@@ -550,7 +552,7 @@ footer {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(0, 0, 0, 0); /* Verificado: clip deprecated pero requerido por patrón estándar de accesibilidad visually-hidden */
   white-space: nowrap;
   border: 0;
 }
@@ -753,7 +755,7 @@ footer {
 }
 
 .gustos summary::-webkit-details-marker {
-  display: none;
+  display: none; /* Verificado: pseudo-elemento vendor necesario para ocultar el triángulo nativo de <details> en Safari/Chrome */
 }
 
 .gustos summary .gustos__titulo {
@@ -957,8 +959,7 @@ main audio {
   }
 
   /* Nav mobile:
-     fila 1 → logo (0) | toggle (2, empujado a la derecha con margin-left auto) | actions (3)
-     fila 2 → links (4, flex-basis 100% los manda abajo al abrir el menú)
+   
   */
   .nav__logo {
     order: 0;
