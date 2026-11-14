@@ -14,6 +14,13 @@ function setThemeIcon(theme) {
   if (icon) icon.setAttribute("href", `${iconSprite}#${theme === "light" ? "moon" : "sun"}`);
 }
 
+function setThemeLabel(theme) {
+  if (!themeBtn) return;
+  themeBtn.setAttribute("aria-label", theme === "light"
+    ? (isEnglish ? "Enable dark mode" : "Activar modo oscuro")
+    : (isEnglish ? "Enable light mode" : "Activar modo claro"));
+}
+
 if (cursor) {
   setInterval(() => {
     cursor.style.opacity = cursor.style.opacity === "0" ? "1" : "0";
@@ -24,9 +31,7 @@ const savedTheme = localStorage.getItem("theme");
 
 if (savedTheme) {
   document.documentElement.setAttribute("data-theme", savedTheme);
-  if (themeBtn) themeBtn.setAttribute("aria-label", savedTheme === "light"
-    ? (isEnglish ? "Enable dark mode" : "Activar modo oscuro")
-    : (isEnglish ? "Enable light mode" : "Activar modo claro"));
+  setThemeLabel(savedTheme);
   setThemeIcon(savedTheme);
 }
 
@@ -37,9 +42,7 @@ if (themeBtn) {
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
     setThemeIcon(next);
-    themeBtn.setAttribute("aria-label", next === "light"
-      ? (isEnglish ? "Enable dark mode" : "Activar modo oscuro")
-      : (isEnglish ? "Enable light mode" : "Activar modo claro"));
+    setThemeLabel(next);
   });
 }
 
@@ -58,7 +61,7 @@ if (toggle && navLinks) {
 
 const portrait = document.querySelector(".hero__portrait");
 const portraitImage = portrait?.querySelector("img");
-const portraitCanvas = document.querySelector("#perfil-terminal");
+const portraitCanvas = portrait?.querySelector("canvas");
 
 if (portrait && portraitImage && portraitCanvas) {
   const context = portraitCanvas.getContext("2d", { willReadFrequently: true });
