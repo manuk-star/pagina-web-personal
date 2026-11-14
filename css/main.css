@@ -309,8 +309,13 @@ footer {
   border-top: 1px solid var(--color-border);
   text-align: center;
   padding: var(--space-sm);
-  color: var(--color-muted);
+  color: var(--color-text);
   font-size: 0.85rem;
+}
+
+footer a {
+  color: var(--color-primary);
+  text-decoration: underline;
 }
 
 /* =====================
