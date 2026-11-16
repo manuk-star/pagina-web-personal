@@ -11,6 +11,7 @@
     <link rel="icon" href="img/logo.png" type="image/png">
     <link rel="preload" href="css/main.css" as="style">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="pagefind/pagefind-ui.css">
     <script>
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -54,15 +55,11 @@
         <div class="nav__actions">
           <div class="language-switch" role="group" aria-label="Idioma"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#globe"></use></svg><span lang="es" aria-current="true">ES</span><span aria-hidden="true">/</span><a href="en/gustos.html" lang="en" hreflang="en" aria-label="Ver esta página en inglés">EN</a></div>
           <button class="nav__theme" aria-label="Activar modo claro"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#sun"></use></svg></button>
-          <button class="nav__search-btn" aria-label="Abrir buscador" aria-expanded="false" aria-controls="search-panel"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#magnifying-glass"></use></svg></button>
-
-        </div>
+          <button class="nav__search-btn" aria-label="Abrir buscador" aria-expanded="false" aria-controls="search-panel"><svg class="icon" aria-hidden="true" focusable="false"><use href="img/icons.svg#magnifying-glass"></use></svg></button></div>
       </nav>
-    <div class="search-panel" id="search-panel" hidden>
+        <div class="search-panel" id="search-panel" hidden>
       <div class="search-panel__inner">
-        <label for="search-input" class="visually-hidden">Buscar en el sitio</label>
-        <input class="search-panel__input" id="search-input" type="search" placeholder="Buscar..." autocomplete="off">
-        <ul class="search-panel__results" role="listbox" aria-label="Resultados de búsqueda" aria-live="polite"></ul>
+        <div id="search"></div>
       </div>
     </div>
     </header>
@@ -219,6 +216,8 @@
       <p>&copy; 2026 Manuel Ignacio Olan — <a href="mapa-del-sitio.html">Mapa del sitio</a></p><p class="footer__update"><small>Última actualización: <time id="last-modified" datetime="2026-11-12">12 de noviembre de 2026</time></small></p>
     </footer>
 
+    <script src="pagefind/pagefind-ui.js"></script>
+    <script>window.addEventListener("DOMContentLoaded", () => { new PagefindUI({ element: "#search", showImages: false }); });</script>
     <script src="js/main.js"></script>
   </body>
 </html>
