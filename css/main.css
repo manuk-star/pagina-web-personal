@@ -152,16 +152,8 @@ header nav {
   width: min(calc(100% - 2rem), var(--max-width));
   max-width: var(--max-width);
   gap: 0.85rem;
-  justify-content: initial;
   padding: 0.35rem var(--space-md);
-  border: 0;
   border-bottom: 1px solid var(--color-border-subtle);
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  /* Verificado: prefijo -webkit- necesario para Safari */
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
 }
 
 nav {
@@ -221,7 +213,8 @@ nav {
   border-radius: 0.4rem;
 }
 
-.nav__theme .icon {
+.nav__theme .icon,
+.nav__search-btn .icon {
   width: 1.3rem;
   height: 1.3rem;
 }
@@ -646,7 +639,6 @@ footer a {
    ===================== */
 
 .contacto {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -985,9 +977,6 @@ main audio {
     display: flex;
   }
 
-  /* Nav mobile:
-   
-  */
   .nav__logo {
     order: 0;
   }
@@ -1089,13 +1078,37 @@ main audio {
 }
 
 /* =====================
-   Buscador
+   Sitemap
    ===================== */
 
-.nav__search-btn .icon {
-  width: 1.3rem;
-  height: 1.3rem;
+.sitemap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  list-style: none;
+  padding: 0;
+  margin-top: var(--space-sm);
+  font-family: var(--font-mono);
 }
+
+.sitemap-list > li {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.sitemap-list > li p {
+  margin-top: 0.25rem;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  font-family: var(--font-sans);
+}
+
+/* =====================
+   Buscador
+   ===================== */
 
 .search-panel {
   position: absolute;
