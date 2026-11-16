@@ -1149,6 +1149,14 @@ main audio {
   font-weight: 700;
 }
 
+mark.search-highlight {
+  background: rgb(88 166 255 / 18%);
+  color: var(--color-primary);
+  border-radius: 2px;
+  padding: 0 2px;
+  font-weight: 700;
+}
+
 .sitemap-list {
   display: flex;
   flex-direction: column;
