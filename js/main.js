@@ -118,20 +118,32 @@ if (portrait && portraitImage && portraitCanvas) {
   }
 }
 
+// =====================
+// Buscador
+// =====================
+
+const SEARCH_INDEX = [
+  { title: "Inicio", url: "index.html", lang: "es", keywords: "Manuel Ignacio Olan Máster Ingeniería Web whoami presentación personal" },
+  { title: "Sobre mí", url: "sobre-mi.html", lang: "es", keywords: "sobre mí ingeniero infraestructura nube AWS DevOps UNAM Guadalajara México España viajes fútbol música tequila Puebla CONTPAQi FinOps" },
+  { title: "Galería", url: "galeria.html", lang: "es", keywords: "galería fotos viajes Barcelona Berlín París Londres Praga Múnich Bruselas Colonia Luxemburgo Machu Picchu Medellín Bogotá Guadalajara Guanajuato UNAM Eindhoven Maastricht Cartagena" },
+  { title: "Mis gustos", url: "gustos.html", lang: "es", keywords: "gustos tecnología AWS Azure servidores Apple cine Harry Potter Toy Story estilo vida café zapatillas música viajes fútbol PSG Barcelona Pumas comida autos podcast vídeo" },
+  { title: "Contacto", url: "contacto.html", lang: "es", keywords: "contacto correo teléfono ubicación España LinkedIn GitHub Instagram referencias" },
+  { title: "Home", url: "index.html", lang: "en", keywords: "Manuel Ignacio Olan Master Web Engineering whoami personal introduction" },
+  { title: "About me", url: "sobre-mi.html", lang: "en", keywords: "about me cloud infrastructure engineer AWS DevOps UNAM Guadalajara Mexico Spain travel football music tequila Puebla CONTPAQi FinOps" },
+  { title: "Gallery", url: "galeria.html", lang: "en", keywords: "gallery travel photos Barcelona Berlin Paris London Prague Munich Brussels Cologne Luxembourg Machu Picchu Medellin Bogota Guadalajara Guanajuato UNAM Eindhoven Maastricht Cartagena" },
+  { title: "Interests", url: "gustos.html", lang: "en", keywords: "interests technology AWS Azure servers Apple movies Harry Potter Toy Story lifestyle coffee sneakers music travel football PSG Barcelona Pumas food cars podcast video" },
+  { title: "Contact", url: "contacto.html", lang: "en", keywords: "contact email phone location Spain LinkedIn GitHub Instagram references" },
+];
+
 const searchBtn = document.querySelector(".nav__search-btn");
 const searchPanel = document.getElementById("search-panel");
 const searchInput = document.getElementById("search-input");
 const searchResults = document.querySelector(".search-panel__results");
 
 if (searchBtn && searchPanel && searchInput && searchResults) {
-  const indexUrl = isEnglish ? "../search-index.json" : "search-index.json";
   const lang = isEnglish ? "en" : "es";
-  let searchIndex = [];
-
-  fetch(indexUrl)
-    .then(r => r.json())
-    .then(data => { searchIndex = data.filter(p => p.lang === lang); })
-    .catch(() => {});
+  const base = isEnglish ? "../" : "";
+  const searchIndex = SEARCH_INDEX.filter(p => p.lang === lang);
 
   function sanitize(str) {
     return str.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -161,9 +173,8 @@ if (searchBtn && searchPanel && searchInput && searchResults) {
 
     matches.forEach(page => {
       const li = document.createElement("li");
-      const url = isEnglish ? `../${page.url}` : page.url;
       const a = document.createElement("a");
-      a.href = url;
+      a.href = `${base}${page.url}?q=${encodeURIComponent(query)}`;
       a.innerHTML = highlight(sanitize(page.title), sanitize(query));
       li.appendChild(a);
       searchResults.appendChild(li);
@@ -194,6 +205,56 @@ if (searchBtn && searchPanel && searchInput && searchResults) {
     }
   });
 }
+
+// =====================
+// Resaltado por ?q=
+// =====================
+
+const qParam = new URLSearchParams(location.search).get("q");
+
+if (qParam && qParam.length >= 2) {
+  const mainEl = document.querySelector("main");
+  if (mainEl) {
+    const walker = document.createTreeWalker(mainEl, NodeFilter.SHOW_TEXT, {
+      acceptNode: node => {
+        const tag = node.parentElement?.tagName;
+        if (["SCRIPT", "STYLE", "MARK"].includes(tag)) return NodeFilter.FILTER_REJECT;
+        return node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      }
+    });
+
+    const escaped = qParam.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(`(${escaped})`, "gi");
+    const nodes = [];
+    let node;
+    while ((node = walker.nextNode())) nodes.push(node);
+
+    let firstMark = null;
+    nodes.forEach(textNode => {
+      if (!regex.test(textNode.nodeValue)) return;
+      regex.lastIndex = 0;
+      const frag = document.createDocumentFragment();
+      let last = 0, match;
+      while ((match = regex.exec(textNode.nodeValue)) !== null) {
+        if (match.index > last) frag.appendChild(document.createTextNode(textNode.nodeValue.slice(last, match.index)));
+        const mark = document.createElement("mark");
+        mark.className = "search-highlight";
+        mark.textContent = match[1];
+        if (!firstMark) firstMark = mark;
+        frag.appendChild(mark);
+        last = match.index + match[1].length;
+      }
+      if (last < textNode.nodeValue.length) frag.appendChild(document.createTextNode(textNode.nodeValue.slice(last)));
+      textNode.parentElement.replaceChild(frag, textNode);
+    });
+
+    if (firstMark) firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+// =====================
+// Galería
+// =====================
 
 const gallery = document.querySelector(".galeria-grid");
 const loadMore = document.querySelector(".galeria-mas");
