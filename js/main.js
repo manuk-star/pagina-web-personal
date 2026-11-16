@@ -16,9 +16,9 @@ function setThemeIcon(theme) {
 
 function setThemeLabel(theme) {
   if (!themeBtn) return;
-  themeBtn.setAttribute("aria-label", theme === "light"
-    ? (isEnglish ? "Enable dark mode" : "Activar modo oscuro")
-    : (isEnglish ? "Enable light mode" : "Activar modo claro"));
+  themeBtn.setAttribute("aria-label", theme == "light" ? (isEnglish ? "Enable dark mode" : "Activar modo oscuro")
+  : (isEnglish ? "Enable light mode" : "Activar modo claro"));
+  themeBtn.setAttribute("aria-pressed", theme == "light" ? "true" : "false");
 }
 
 if (cursor) {
@@ -178,7 +178,7 @@ if (gallery && loadMore) {
     buttonLabel.textContent = showingAll
       ? (isEnglish ? "Show fewer" : "Mostrar menos")
       : (isEnglish ? "Show more" : "Mostrar más");
-    buttonIcon.setAttribute("href", `${iconSprite}#${showingAll ? "chevron-up" : "chevron-down"}`);
+    buttonIcon.setAttribute("href", `${iconSprite}#${showingAll ? "caret-up" : "caret-down"}`);
     status.textContent = isEnglish
       ? `Showing ${visibleCount} of ${cards.length} destinations.`
       : `Se muestran ${visibleCount} de ${cards.length} destinos.`;
@@ -192,4 +192,73 @@ if (gallery && loadMore) {
   });
 
   updateGallery();
+}
+
+const searchBtn = document.querySelector(".nav__search-btn");
+const searchPanel = document.getElementById("search-panel");
+const searchInput = document.getElementById("search-input");
+const searchResults = document.querySelector(".search-panel__results");
+const indexUrl = isEnglish ? "../search-index.json" : "search-index.json";
+
+let searchIndex = [];
+if (searchBtn) {
+  fetch(indexUrl)
+    .then(r => r.json())
+    .then(data => { searchIndex = data; });
+}
+
+function highlight(text, query) {
+  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
+  return text.replace(regex, "<mark>$1</mark>");
+}
+
+function runSearch(query) {
+  searchResults.innerHTML = "";
+  if (query.length < 2) return;
+
+  const lang = isEnglish ? "en" : "es";
+  const matches = searchIndex.filter(p =>
+    p.lang === lang &&
+    (p.title.toLowerCase().includes(query.toLowerCase()) ||
+     p.keywords.toLowerCase().includes(query.toLowerCase()))
+  );
+
+  if (matches.length === 0) {
+    searchResults.innerHTML = `<li style="color:var(--color-muted)">${isEnglish ? "No results found" : "Sin resultados"}</li>`;
+    return;
+  }
+
+  const base = isEnglish ? "../" : "";
+  matches.forEach(page => {
+    const li = document.createElement("li");
+    li.setAttribute("role", "option");
+    li.innerHTML = `<a href="${base}${page.url}" style="color:inherit;text-decoration:none;display:block">${highlight(page.title, query)}</a>`;
+    searchResults.appendChild(li);
+  });
+}
+
+if (searchBtn && searchPanel && searchInput) {
+  searchBtn.addEventListener("click", () => {
+    const open = searchPanel.hidden;
+    searchPanel.hidden = !open;
+    searchBtn.setAttribute("aria-expanded", String(open));
+    if (open) searchInput.focus();
+  });
+
+  searchInput.addEventListener("input", () => runSearch(searchInput.value.trim()));
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !searchPanel.hidden) {
+      searchPanel.hidden = true;
+      searchBtn.setAttribute("aria-expanded", "false");
+      searchBtn.focus();
+    }
+  });
+
+  document.addEventListener("click", e => {
+    if (!searchPanel.hidden && !searchPanel.contains(e.target) && e.target !== searchBtn) {
+      searchPanel.hidden = true;
+      searchBtn.setAttribute("aria-expanded", "false");
+    }
+  });
 }

@@ -42,6 +42,8 @@
         <div class="nav__actions">
           <div class="language-switch" role="group" aria-label="Language"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons.svg#globe"></use></svg><a href="../galeria.html" lang="es" hreflang="es" aria-label="Ver esta página en español">ES</a><span aria-hidden="true">/</span><span lang="en" aria-current="true">EN</span></div>
           <button class="nav__theme" aria-label="Enable light mode"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons.svg#sun"></use></svg></button>
+          <button class="nav__search-btn" aria-label="Open search" aria-expanded="false" aria-controls="search-panel"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons.svg#magnifying-glass"></use></svg></button>
+
         </div>
       </nav>
     </header>
@@ -54,7 +56,7 @@
       </nav>
       <section aria-labelledby="galeria-titulo">
         <h1 id="galeria-titulo">Travel gallery</h1>
-        <p class="ayuda-contextual"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons.svg#expand"></use></svg> Select a photo to enlarge it. Close the view with Escape or the “Close image” button.</p>
+        <p class="ayuda-contextual"><svg class="icon" aria-hidden="true" focusable="false"><use href="../img/icons.svg#arrows-out"></use></svg> Select a photo to enlarge it. Close the view with Escape or the “Close image” button.</p>
         <div class="galeria-grid">
           <figure><button class="galeria-imagen" type="button" data-gallery-open aria-label="Enlarge photo: Three Borders"><picture><source srcset="../img/3fronteras.webp" type="image/webp"><img src="../img/3fronteras.jpeg" alt="" data-image-alt="Three Borders"></picture></button><figcaption>Three Borders</figcaption></figure>
           <figure><button class="galeria-imagen" type="button" data-gallery-open aria-label="Enlarge photo: Barcelona"><picture><source srcset="../img/barcelona.webp" type="image/webp"><img src="../img/barcelona.jpeg" alt="" data-image-alt="Barcelona"></picture></button><figcaption>Barcelona</figcaption></figure>
@@ -78,7 +80,7 @@
           <figure><button class="galeria-imagen" type="button" data-gallery-open aria-label="Enlarge photo: Eindhoven"><picture><source srcset="../img/PSV.webp" type="image/webp"><img src="../img/PSV.jpeg" alt="" data-image-alt="Eindhoven"></picture></button><figcaption>Eindhoven</figcaption></figure>
           <figure><button class="galeria-imagen" type="button" data-gallery-open aria-label="Enlarge photo: UNAM"><picture><source srcset="../img/unam.webp" type="image/webp"><img src="../img/unam.jpeg" alt="" data-image-alt="UNAM"></picture></button><figcaption>UNAM</figcaption></figure>
         </div>
-        <div class="galeria-mas" hidden><button class="galeria-mas__boton" type="button" data-gallery-more><svg class="icon" aria-hidden="true" focusable="false" data-gallery-more-icon><use href="../img/icons.svg#chevron-down"></use></svg><span data-gallery-more-label>Show more</span></button></div>
+        <div class="galeria-mas" hidden><button class="galeria-mas__boton" type="button" data-gallery-more><svg class="icon" aria-hidden="true" focusable="false" data-gallery-more-icon><use href="../img/icons.svg#caret-down"></use></svg><span data-gallery-more-label>Show more</span></button></div>
         <p class="galeria-estado" role="status" aria-live="polite" data-gallery-status></p>
       </section>
       <dialog class="galeria-dialog" data-gallery-dialog aria-labelledby="galeria-dialog-titulo">
