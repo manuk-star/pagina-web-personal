@@ -140,6 +140,7 @@ header {
   left: 0;
   right: 0;
   z-index: 100;
+  overflow: visible;
   background: rgb(13 17 23 / 38%);
   /* Verificado: prefijo -webkit- necesario para Safari */
   -webkit-backdrop-filter: blur(24px) saturate(160%);
@@ -1082,8 +1083,8 @@ main audio {
    ===================== */
 
 .search-panel {
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: var(--header-offset);
   left: 0;
   right: 0;
   background: var(--color-surface);
