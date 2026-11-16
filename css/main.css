@@ -195,14 +195,9 @@ nav {
 }
 
 .nav__theme {
-  background: none;
-  border: none;
-  color: var(--color-text);
-  font-size: 1.2rem;
   cursor: pointer;
   flex-shrink: 0;
   line-height: 1;
-  padding: 0.2rem;
 }
 
 .icon {
@@ -272,11 +267,12 @@ nav {
 .language-switch [aria-current="true"] {
   color: var(--color-accent);
   font-weight: 700;
+}
+
 .nav__theme:hover,
 .nav__search-btn:hover {
   border-color: var(--color-accent);
   color: var(--color-accent);
-}
 }
 
 .nav__actions {
@@ -1090,8 +1086,9 @@ main audio {
   main:has(> .breadcrumbs) {
     padding-top: calc(var(--space-xs) + 1rem);
   }
+}
 
-  /* =====================
+/* =====================
    Buscador
    ===================== */
 
@@ -1159,6 +1156,4 @@ main audio {
   color: #000;
   border-radius: 2px;
   padding: 0 2px;
-}
-
 }
