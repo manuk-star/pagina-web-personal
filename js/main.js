@@ -208,7 +208,8 @@ if (searchBtn) {
 }
 
 function highlight(text, query) {
-  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
+  const safe = query.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const regex = new RegExp(`(${safe.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
   return text.replace(regex, "<mark>$1</mark>");
 }
 
@@ -228,21 +229,22 @@ function runSearch(query) {
     return;
   }
 
-  const base = isEnglish ? "../" : "";
   matches.forEach(page => {
     const li = document.createElement("li");
+    const url = isEnglish ? `../${page.url}` : page.url;
     li.setAttribute("role", "option");
-    li.innerHTML = `<a href="${base}${page.url}" style="color:inherit;text-decoration:none;display:block">${highlight(page.title, query)}</a>`;
+    li.innerHTML = `<a href="${url}" style="color:inherit;text-decoration:none;display:block">${highlight(page.title, query)}</a>`;
     searchResults.appendChild(li);
   });
 }
 
 if (searchBtn && searchPanel && searchInput) {
   searchBtn.addEventListener("click", () => {
-    const open = searchPanel.hidden;
-    searchPanel.hidden = !open;
-    searchBtn.setAttribute("aria-expanded", String(open));
-    if (open) searchInput.focus();
+    const isHidden = searchPanel.hidden;
+    searchPanel.hidden = !isHidden;
+    searchBtn.setAttribute("aria-expanded", String(!isHidden));
+    if (!isHidden === false) return;
+    searchInput.focus();
   });
 
   searchInput.addEventListener("input", () => runSearch(searchInput.value.trim()));
