@@ -86,14 +86,8 @@ if (portrait && portraitImage && portraitCanvas) {
 
       context.drawImage(
         portraitImage,
-        sourceX,
-        sourceY,
-        sourceWidth,
-        sourceHeight,
-        0,
-        0,
-        width,
-        height
+        sourceX, sourceY, sourceWidth, sourceHeight,
+        0, 0, width, height
       );
 
       const imageData = context.getImageData(0, 0, width, height);
@@ -105,10 +99,7 @@ if (portrait && portraitImage && portraitCanvas) {
           0.587 * pixels[i + 1] +
           0.114 * pixels[i + 2];
 
-        const contrast = Math.max(
-          0,
-          Math.min(255, (luminance - 128) * 1.35 + 128)
-        );
+        const contrast = Math.max(0, Math.min(255, (luminance - 128) * 1.35 + 128));
 
         pixels[i] = contrast * 0.08;
         pixels[i + 1] = contrast * 0.92;
@@ -129,14 +120,64 @@ if (portrait && portraitImage && portraitCanvas) {
 
 const searchBtn = document.querySelector(".nav__search-btn");
 const searchPanel = document.getElementById("search-panel");
+const searchInput = document.getElementById("search-input");
+const searchResults = document.querySelector(".search-panel__results");
 
-if (searchBtn && searchPanel) {
+if (searchBtn && searchPanel && searchInput && searchResults) {
+  const indexUrl = isEnglish ? "../search-index.json" : "search-index.json";
+  const lang = isEnglish ? "en" : "es";
+  let searchIndex = [];
+
+  fetch(indexUrl)
+    .then(r => r.json())
+    .then(data => { searchIndex = data.filter(p => p.lang === lang); })
+    .catch(() => {});
+
+  function sanitize(str) {
+    return str.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  function highlight(text, query) {
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return text.replace(new RegExp(`(${escaped})`, "gi"), "<mark>$1</mark>");
+  }
+
+  function runSearch(query) {
+    searchResults.innerHTML = "";
+    if (query.length < 2) return;
+
+    const q = query.toLowerCase();
+    const matches = searchIndex.filter(p =>
+      p.title.toLowerCase().includes(q) || p.keywords.toLowerCase().includes(q)
+    );
+
+    if (matches.length === 0) {
+      const li = document.createElement("li");
+      li.style.color = "var(--color-muted)";
+      li.textContent = isEnglish ? "No results found" : "Sin resultados";
+      searchResults.appendChild(li);
+      return;
+    }
+
+    matches.forEach(page => {
+      const li = document.createElement("li");
+      const url = isEnglish ? `../${page.url}` : page.url;
+      const a = document.createElement("a");
+      a.href = url;
+      a.innerHTML = highlight(sanitize(page.title), sanitize(query));
+      li.appendChild(a);
+      searchResults.appendChild(li);
+    });
+  }
+
   searchBtn.addEventListener("click", () => {
     const isHidden = searchPanel.hidden;
     searchPanel.hidden = !isHidden;
     searchBtn.setAttribute("aria-expanded", String(!isHidden));
-    if (isHidden) searchPanel.querySelector("input")?.focus();
+    if (isHidden) searchInput.focus();
   });
+
+  searchInput.addEventListener("input", () => runSearch(searchInput.value.trim()));
 
   document.addEventListener("keydown", e => {
     if (e.key === "Escape" && !searchPanel.hidden) {
@@ -154,6 +195,7 @@ if (searchBtn && searchPanel) {
   });
 }
 
+const gallery = document.querySelector(".galeria-grid");
 const loadMore = document.querySelector(".galeria-mas");
 const galleryDialog = document.querySelector("[data-gallery-dialog]");
 
@@ -219,4 +261,3 @@ if (gallery && loadMore) {
 
   updateGallery();
 }
-

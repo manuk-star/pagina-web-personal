@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Inicio",
+    "url": "index.html",
+    "lang": "es",
+    "keywords": "Manuel Ignacio Olan Máster Ingeniería Web whoami presentación personal"
+  },
+  {
+    "title": "Sobre mí",
+    "url": "sobre-mi.html",
+    "lang": "es",
+    "keywords": "sobre mí ingeniero infraestructura nube AWS DevOps UNAM Guadalajara México España viajes fútbol música tequila Puebla CONTPAQi FinOps"
+  },
+  {
+    "title": "Galería",
+    "url": "galeria.html",
+    "lang": "es",
+    "keywords": "galería fotos viajes Barcelona Berlín París Londres Praga Múnich Bruselas Colonia Luxemburgo Machu Picchu Medellín Bogotá Guadalajara Guanajuato UNAM Eindhoven Maastricht Cartagena"
+  },
+  {
+    "title": "Mis gustos",
+    "url": "gustos.html",
+    "lang": "es",
+    "keywords": "gustos tecnología AWS Azure servidores Apple cine Harry Potter Toy Story estilo vida café zapatillas música viajes fútbol PSG Barcelona Pumas comida autos podcast vídeo"
+  },
+  {
+    "title": "Contacto",
+    "url": "contacto.html",
+    "lang": "es",
+    "keywords": "contacto correo teléfono ubicación España LinkedIn GitHub Instagram referencias"
+  },
+  {
+    "title": "Home",
+    "url": "en/index.html",
+    "lang": "en",
+    "keywords": "Manuel Ignacio Olan Master Web Engineering whoami personal introduction"
+  },
+  {
+    "title": "About me",
+    "url": "en/sobre-mi.html",
+    "lang": "en",
+    "keywords": "about me cloud infrastructure engineer AWS DevOps UNAM Guadalajara Mexico Spain travel football music tequila Puebla CONTPAQi FinOps"
+  },
+  {
+    "title": "Gallery",
+    "url": "en/galeria.html",
+    "lang": "en",
+    "keywords": "gallery travel photos Barcelona Berlin Paris London Prague Munich Brussels Cologne Luxembourg Machu Picchu Medellin Bogota Guadalajara Guanajuato UNAM Eindhoven Maastricht Cartagena"
+  },
+  {
+    "title": "Interests",
+    "url": "en/gustos.html",
+    "lang": "en",
+    "keywords": "interests technology AWS Azure servers Apple movies Harry Potter Toy Story lifestyle coffee sneakers music travel football PSG Barcelona Pumas food cars podcast video"
+  },
+  {
+    "title": "Contact",
+    "url": "en/contacto.html",
+    "lang": "en",
+    "keywords": "contact email phone location Spain LinkedIn GitHub Instagram references"
+  }
+]
