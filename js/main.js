@@ -127,7 +127,33 @@ if (portrait && portraitImage && portraitCanvas) {
   }
 }
 
-const gallery = document.querySelector(".galeria-grid");
+const searchBtn = document.querySelector(".nav__search-btn");
+const searchPanel = document.getElementById("search-panel");
+
+if (searchBtn && searchPanel) {
+  searchBtn.addEventListener("click", () => {
+    const isHidden = searchPanel.hidden;
+    searchPanel.hidden = !isHidden;
+    searchBtn.setAttribute("aria-expanded", String(!isHidden));
+    if (isHidden) searchPanel.querySelector("input")?.focus();
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !searchPanel.hidden) {
+      searchPanel.hidden = true;
+      searchBtn.setAttribute("aria-expanded", "false");
+      searchBtn.focus();
+    }
+  });
+
+  document.addEventListener("click", e => {
+    if (!searchPanel.hidden && !searchPanel.contains(e.target) && e.target !== searchBtn) {
+      searchPanel.hidden = true;
+      searchBtn.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
 const loadMore = document.querySelector(".galeria-mas");
 const galleryDialog = document.querySelector("[data-gallery-dialog]");
 
@@ -194,72 +220,3 @@ if (gallery && loadMore) {
   updateGallery();
 }
 
-const searchBtn = document.querySelector(".nav__search-btn");
-const searchPanel = document.getElementById("search-panel");
-const searchInput = document.getElementById("search-input");
-const searchResults = document.querySelector(".search-panel__results");
-
-if (searchBtn && searchPanel && searchInput && searchResults) {
-  const indexUrl = isEnglish ? "../search-index.json" : "search-index.json";
-  let searchIndex = [];
-
-  fetch(indexUrl)
-    .then(r => r.json())
-    .then(data => { searchIndex = data; })
-    .catch(() => {});
-
-  function highlight(text, query) {
-    const safe = query.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-    const regex = new RegExp(`(${safe.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
-    return text.replace(regex, "<mark>$1</mark>");
-  }
-
-  function runSearch(query) {
-    searchResults.innerHTML = "";
-    if (query.length < 2) return;
-
-    const lang = isEnglish ? "en" : "es";
-    const matches = searchIndex.filter(p =>
-      p.lang === lang &&
-      (p.title.toLowerCase().includes(query.toLowerCase()) ||
-       p.keywords.toLowerCase().includes(query.toLowerCase()))
-    );
-
-    if (matches.length === 0) {
-      searchResults.innerHTML = `<li style="color:var(--color-muted)">${isEnglish ? "No results found" : "Sin resultados"}</li>`;
-      return;
-    }
-
-    matches.forEach(page => {
-      const li = document.createElement("li");
-      const url = isEnglish ? `../${page.url}` : page.url;
-      li.setAttribute("role", "option");
-      li.innerHTML = `<a href="${url}" style="color:inherit;text-decoration:none;display:block">${highlight(page.title, query)}</a>`;
-      searchResults.appendChild(li);
-    });
-  }
-
-  searchBtn.addEventListener("click", () => {
-    const isHidden = searchPanel.hidden;
-    searchPanel.hidden = !isHidden;
-    searchBtn.setAttribute("aria-expanded", String(!isHidden));
-    if (isHidden) searchInput.focus();
-  });
-
-  searchInput.addEventListener("input", () => runSearch(searchInput.value.trim()));
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && !searchPanel.hidden) {
-      searchPanel.hidden = true;
-      searchBtn.setAttribute("aria-expanded", "false");
-      searchBtn.focus();
-    }
-  });
-
-  document.addEventListener("click", e => {
-    if (!searchPanel.hidden && !searchPanel.contains(e.target) && e.target !== searchBtn) {
-      searchPanel.hidden = true;
-      searchBtn.setAttribute("aria-expanded", "false");
-    }
-  });
-}
