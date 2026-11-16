@@ -199,7 +199,9 @@ if (searchBtn && searchPanel && searchInput && searchResults) {
   });
 
   document.addEventListener("click", e => {
-    if (!searchPanel.hidden && !searchPanel.contains(e.target) && e.target !== searchBtn) {
+    // The click usually lands on the SVG/use inside the button, not the button itself.
+    // Treat clicks anywhere inside the button as internal so the panel stays open.
+    if (!searchPanel.hidden && !searchPanel.contains(e.target) && !searchBtn.contains(e.target)) {
       searchPanel.hidden = true;
       searchBtn.setAttribute("aria-expanded", "false");
     }
