@@ -1,287 +1,144 @@
 # Buscador del sitio
 
-## Arquitectura
+## Objetivo y decisiones
 
-Búsqueda client-side sin dependencias externas. El índice está embebido directamente en `main.js` como constante `SEARCH_INDEX`, eliminando cualquier petición de red y haciendo la búsqueda instantánea.
+El buscador funciona en el navegador con JavaScript nativo, sin bibliotecas ni servicios externos. Se eligió esta solución porque el sitio es estático y no necesita un servidor de búsqueda ni una compilación.
 
-## Flujo
+La búsqueda combina el texto real del elemento `<main>` de las páginas con una lista breve de términos de respaldo en `SEARCH_PAGES`. Así no hay que copiar manualmente todo el contenido a un índice; los términos adicionales ayudan con sinónimos y la lista sigue dando resultados si falla una petición.
 
-1. El usuario abre el panel con el botón de la lupa en la navegación.
-2. Al escribir (mínimo 2 caracteres), se filtra `SEARCH_INDEX` por `title` y `keywords`.
-3. Cada resultado es un enlace a `pagina.html?q=termino`.
-4. Al cargar la página destino, `main.js` lee `?q=`, recorre los nodos de texto de `<main>` con `TreeWalker` y envuelve las coincidencias en `<mark class="search-highlight">`. El primer resultado queda visible con `scrollIntoView`.
+## Flujo de búsqueda
 
-## Archivos implicados
+1. La lupa abre el panel, actualiza `aria-expanded` y enfoca el campo.
+2. A partir de dos caracteres, el script descarga las seis páginas del idioma actual. `DOMParser` extrae el texto de `<main>`.
+3. Consulta y contenido se normalizan para ignorar mayúsculas y acentos. En una consulta de varias palabras, todas deben aparecer.
+4. Los resultados se muestran como enlaces dentro de una lista HTML.
+5. El enlace lleva la consulta en `?q=`. La página destino recorre el texto de `<main>`, marca coincidencias con `<mark>` y desplaza la vista a la primera.
+6. Escape cierra el panel y devuelve el foco a la lupa; un clic fuera también lo cierra.
 
-- `js/main.js` — constante `SEARCH_INDEX`, lógica del panel, lógica de resaltado
-- `css/main.css` — estilos `.search-panel`, `.search-panel__results mark`, `mark.search-highlight`
-- Todos los HTML — botón `.nav__search-btn` y `<div id="search-panel">` en el `<header>`
+El texto se carga bajo demanda y la promesa `pageContentPromise` conserva el resultado en memoria. Al seguir escribiendo no se repiten las seis peticiones. Si `fetch` falla, se puede buscar todavía por título y palabras clave. Al abrir directamente mediante `file://` el navegador puede bloquear `fetch`; el sitio publicado debe servirse por HTTP/HTTPS para buscar el texto completo.
 
----
+## HTML
 
-## Código — HTML
-
-Botón en `.nav__actions` dentro del `<nav>` de cada página:
+Cada página contiene el botón y el panel. La etiqueta asociada nombra el campo; `aria-live="polite"` anuncia las actualizaciones, y `aria-expanded` informa el estado del panel.
 
 ```html
-<button class="nav__search-btn" aria-label="Abrir buscador" aria-expanded="false" aria-controls="search-panel">
+<button class="nav__search-btn"
+        aria-label="Abrir buscador"
+        aria-expanded="false"
+        aria-controls="search-panel">
   <svg class="icon" aria-hidden="true" focusable="false">
     <use href="img/icons.svg#magnifying-glass"></use>
   </svg>
 </button>
-```
 
-Panel entre `</nav>` y `</header>`:
-
-```html
 <div class="search-panel" id="search-panel" hidden>
   <div class="search-panel__inner">
     <label for="search-input" class="visually-hidden">Buscar en el sitio</label>
-    <input class="search-panel__input" id="search-input" type="search" placeholder="Buscar..." autocomplete="off">
-    <ul class="search-panel__results" role="listbox" aria-label="Resultados de búsqueda" aria-live="polite"></ul>
+    <input class="search-panel__input" id="search-input"
+           type="search" placeholder="Buscar..." autocomplete="off">
+    <ul class="search-panel__results"
+        aria-label="Resultados de búsqueda" aria-live="polite"></ul>
   </div>
 </div>
 ```
 
-En páginas EN (`/en/`) el `href` del icono usa `../img/icons.svg#magnifying-glass` y el label dice `"Search the site"`.
+En las páginas de `/en/`, el texto accesible va en inglés y el icono apunta a `../img/icons.svg`. Los resultados son enlaces dentro de una lista; por eso el `<ul>` no lleva `role="listbox"`.
 
----
+## Catálogo
 
-## Código — CSS
-
-```css
-.search-panel {
-  position: fixed;
-  top: var(--header-offset);
-  left: 0;
-  right: 0;
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  z-index: 99;
-}
-
-.search-panel[hidden] {
-  display: none;
-}
-
-.search-panel__inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0.75rem var(--space-md);
-}
-
-.search-panel__input {
-  width: 100%;
-  padding: 0.55rem 0.9rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-}
-
-.search-panel__input:focus {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.search-panel__results {
-  list-style: none;
-  padding: 0;
-  margin-top: 0.5rem;
-}
-
-.search-panel__results li {
-  padding: 0.4rem 0.6rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-}
-
-.search-panel__results li:hover {
-  background: var(--color-bg);
-}
-
-.search-panel__results a {
-  color: var(--color-text);
-  text-decoration: none;
-  display: block;
-}
-
-.search-panel__results a:hover {
-  color: var(--color-accent);
-}
-
-/* Mark en resultados del panel */
-.search-panel__results mark {
-  background: transparent;
-  color: var(--color-accent);
-  font-weight: 700;
-}
-
-/* Mark en página destino tras navegar con ?q= */
-mark.search-highlight {
-  background: rgb(88 166 255 / 18%);
-  color: var(--color-primary);
-  border-radius: 2px;
-  padding: 0 2px;
-  font-weight: 700;
-}
-```
-
----
-
-## Código — JavaScript
-
-### Índice inline
+`SEARCH_PAGES` contiene seis entradas por idioma: título, ruta relativa, idioma y palabras clave. El prefijo `../` se aplica desde las páginas inglesas.
 
 ```js
-const SEARCH_INDEX = [
-  { title: "Inicio", url: "index.html", lang: "es", keywords: "..." },
-  // ... 10 entradas totales, 5 ES + 5 EN
+const SEARCH_PAGES = [
+  { title: "Inicio", url: "index.html", lang: "es", keywords: "Manuel Ignacio Olan Máster Ingeniería Web presentación personal" },
+  { title: "Sobre mí", url: "sobre-mi.html", lang: "es", keywords: "ingeniero infraestructura nube AWS DevOps UNAM Guadalajara México España viajes fútbol música" },
+  { title: "Galería", url: "galeria.html", lang: "es", keywords: "fotos viajes Barcelona Berlín París Londres Praga Múnich Machu Picchu Medellín Bogotá" },
+  { title: "Mis gustos", url: "gustos.html", lang: "es", keywords: "tecnología AWS Azure servidores Apple cine Harry Potter música viajes fútbol comida" },
+  { title: "Contacto", url: "contacto.html", lang: "es", keywords: "correo teléfono ubicación LinkedIn GitHub Instagram" },
+  { title: "Mapa del sitio", url: "mapa-del-sitio.html", lang: "es", keywords: "navegación páginas" },
+  { title: "Home", url: "index.html", lang: "en", keywords: "Manuel Ignacio Olan Master Web Engineering personal introduction" },
+  { title: "About me", url: "sobre-mi.html", lang: "en", keywords: "cloud infrastructure engineer AWS DevOps UNAM Guadalajara Mexico Spain travel football music" },
+  { title: "Gallery", url: "galeria.html", lang: "en", keywords: "travel photos Barcelona Berlin Paris London Prague Munich Machu Picchu Medellin Bogota" },
+  { title: "Interests", url: "gustos.html", lang: "en", keywords: "technology AWS Azure servers Apple movies Harry Potter music travel football food" },
+  { title: "Contact", url: "contacto.html", lang: "en", keywords: "email phone location LinkedIn GitHub Instagram" },
+  { title: "Site map", url: "mapa-del-sitio.html", lang: "en", keywords: "navigation pages" },
 ];
 ```
 
-### Panel — toggle, búsqueda, cierre
+Al añadir una página, agrega una entrada por cada idioma disponible y los términos alternativos que ayuden a encontrarla.
+
+## Normalización y búsqueda
+
+La normalización Unicode descompone caracteres acentuados y elimina sus marcas; así `busqueda` coincide con `búsqueda`.
 
 ```js
-const searchBtn = document.querySelector(".nav__search-btn");
-const searchPanel = document.getElementById("search-panel");
-const searchInput = document.getElementById("search-input");
-const searchResults = document.querySelector(".search-panel__results");
+function normalizeSearchText(value) {
+  const lang = document.documentElement.lang || "en";
+  return value.normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase(lang);
+}
 
-if (searchBtn && searchPanel && searchInput && searchResults) {
-  const lang = isEnglish ? "en" : "es";
-  const base = isEnglish ? "../" : "";
-  const searchIndex = SEARCH_INDEX.filter(p => p.lang === lang);
+const words = normalizeSearchText(query).split(/\s+/).filter(Boolean);
+const matches = indexedPages.filter(page => {
+  const text = normalizeSearchText(
+    page.title + " " + page.keywords + " " + page.content
+  );
+  return words.every(word => text.includes(word));
+});
+```
 
-  function sanitize(str) {
-    return str.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+El mínimo de dos caracteres evita resultados poco útiles para consultas muy cortas. Todos los términos deben coincidir; pueden aparecer en cualquier parte del título, las palabras clave o el contenido.
+
+Los enlaces se crean con la API del DOM y asignan el título con `textContent`. La consulta se agrega a la URL con `encodeURIComponent`. Esto evita interpretar el texto buscado como HTML y conserva espacios y caracteres especiales.
+
+## Carga de páginas
+
+```js
+function loadPageContent() {
+  if (!pageContentPromise) {
+    pageContentPromise = Promise.all(pages.map(async page => {
+      try {
+        const response = await fetch(base + page.url);
+        if (!response.ok) return { ...page, content: "" };
+
+        const html = await response.text();
+        const pageDocument = new DOMParser().parseFromString(html, "text/html");
+        return {
+          ...page,
+          content: pageDocument.querySelector("main")?.textContent || "",
+        };
+      } catch {
+        return { ...page, content: "" };
+      }
+    }));
   }
-
-  function highlight(text, query) {
-    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    return text.replace(new RegExp(`(${escaped})`, "gi"), "<mark>$1</mark>");
-  }
-
-  function runSearch(query) {
-    searchResults.innerHTML = "";
-    if (query.length < 2) return;
-    const q = query.toLowerCase();
-    const matches = searchIndex.filter(p =>
-      p.title.toLowerCase().includes(q) || p.keywords.toLowerCase().includes(q)
-    );
-    if (matches.length === 0) {
-      const li = document.createElement("li");
-      li.style.color = "var(--color-muted)";
-      li.textContent = isEnglish ? "No results found" : "Sin resultados";
-      searchResults.appendChild(li);
-      return;
-    }
-    matches.forEach(page => {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
-      a.href = `${base}${page.url}?q=${encodeURIComponent(query)}`;
-      a.innerHTML = highlight(sanitize(page.title), sanitize(query));
-      li.appendChild(a);
-      searchResults.appendChild(li);
-    });
-  }
-
-  // Abrir/cerrar con botón
-  searchBtn.addEventListener("click", () => {
-    const isHidden = searchPanel.hidden;
-    searchPanel.hidden = !isHidden;
-    searchBtn.setAttribute("aria-expanded", String(!isHidden));
-    if (isHidden) searchInput.focus();
-  });
-
-  // Buscar al escribir
-  searchInput.addEventListener("input", () => runSearch(searchInput.value.trim()));
-
-  // Cerrar con Escape
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && !searchPanel.hidden) {
-      searchPanel.hidden = true;
-      searchBtn.setAttribute("aria-expanded", "false");
-      searchBtn.focus();
-    }
-  });
-
-  // Cerrar al hacer click fuera
-  document.addEventListener("click", e => {
-    if (!searchPanel.hidden && !searchPanel.contains(e.target) && e.target !== searchBtn) {
-      searchPanel.hidden = true;
-      searchBtn.setAttribute("aria-expanded", "false");
-    }
-  });
+  return pageContentPromise;
 }
 ```
 
-### Resaltado en página destino (`?q=`)
+Se lee solo `<main>` para excluir navegación y pie. Las peticiones se hacen en paralelo; los errores se aíslan por página para que una ruta que falle no cancele el índice completo.
 
-```js
-const qParam = new URLSearchParams(location.search).get("q");
+## Resaltado en destino
 
-if (qParam && qParam.length >= 2) {
-  const mainEl = document.querySelector("main");
-  if (mainEl) {
-    const walker = document.createTreeWalker(mainEl, NodeFilter.SHOW_TEXT, {
-      acceptNode: node => {
-        const tag = node.parentElement?.tagName;
-        if (["SCRIPT", "STYLE", "MARK"].includes(tag)) return NodeFilter.FILTER_REJECT;
-        return node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
-      }
-    });
+`URLSearchParams` lee `q`. `TreeWalker` recorre nodos de texto de `<main>` y omite `script`, `style` y marcas ya creadas. Para que una búsqueda sin tilde resalte una palabra con tilde, el código relaciona el texto normalizado con las posiciones de los caracteres originales. Las marcas se crean con nodos DOM y mantienen intactos los acentos; no se inserta la consulta con `innerHTML`.
 
-    const escaped = qParam.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const regex = new RegExp(`(${escaped})`, "gi");
-    const nodes = [];
-    let node;
-    while ((node = walker.nextNode())) nodes.push(node);
+## Accesibilidad e interacción
 
-    let firstMark = null;
-    nodes.forEach(textNode => {
-      if (!regex.test(textNode.nodeValue)) return;
-      regex.lastIndex = 0;
-      const frag = document.createDocumentFragment();
-      let last = 0, match;
-      while ((match = regex.exec(textNode.nodeValue)) !== null) {
-        if (match.index > last) frag.appendChild(document.createTextNode(textNode.nodeValue.slice(last, match.index)));
-        const mark = document.createElement("mark");
-        mark.className = "search-highlight";
-        mark.textContent = match[1];
-        if (!firstMark) firstMark = mark;
-        frag.appendChild(mark);
-        last = match.index + match[1].length;
-      }
-      if (last < textNode.nodeValue.length) frag.appendChild(document.createTextNode(textNode.nodeValue.slice(last)));
-      textNode.parentElement.replaceChild(frag, textNode);
-    });
+- `aria-expanded` refleja el estado real del panel.
+- El campo tiene una etiqueta asociada por `for` y `id`.
+- Los resultados son enlaces HTML en una lista y se anuncian mediante `aria-live`.
+- Escape cierra el panel y devuelve el foco al botón.
+- El clic exterior comprueba `!searchBtn.contains(event.target)`. Se usa `contains` porque el destino puede ser el `<svg>` o `<use>` hijo de la lupa, y no el botón.
 
-    if (firstMark) firstMark.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-}
-```
+## Presentación y archivos
 
----
+`css/main.css` define el panel fijo bajo la cabecera con `top: var(--header-offset)`, los resultados y `mark.search-highlight`. El atributo `hidden` oculta el panel cerrado. Se eligió `position: fixed` porque el encabezado también es fijo y el panel debe ocupar el ancho de la ventana, sin quedar recortado por el contenedor de navegación.
 
-## Índice (`SEARCH_INDEX`)
+- `js/main.js`: catálogo, carga, normalización, filtrado, apertura/cierre y resaltado.
+- `css/main.css`: panel, resultados y resaltado.
+- Los doce HTML: botón y panel traducidos al idioma de cada página.
 
-10 entradas: 5 en español (`lang: "es"`) y 5 en inglés (`lang: "en"`).  
-Campos: `title`, `url`, `lang`, `keywords`.  
-Las URLs son relativas a la raíz del sitio (`index.html`, `galeria.html`, etc.).  
-Las páginas EN están en `/en/` — `main.js` añade el prefijo `../` automáticamente cuando `isEnglish` es `true`.
+## Bug de apertura resuelto
 
----
-
-## Posicionamiento del panel
-
-El panel usa `position: fixed` con `top: var(--header-offset)` (4.5rem) para aparecer justo debajo del header fijo. No usa `position: absolute` relativo al header porque el header tiene `overflow` y dimensiones que colapsaban el panel a `width: 0, height: 0`.
-
----
-
-## Mantenimiento
-
-Para añadir o modificar páginas, editar el array `SEARCH_INDEX` en `main.js`.  
-No hay ningún archivo JSON externo que mantener.
+Antes, el cierre por clic exterior comprobaba `event.target !== searchBtn`. Al pulsar la lupa, el evento suele tener como destino el `svg` o el `use` interno, así que el panel se cerraba inmediatamente. Ahora se comprueba si el destino está contenido dentro del botón y solo se cierra cuando el clic ocurre realmente fuera del panel y del botón.
