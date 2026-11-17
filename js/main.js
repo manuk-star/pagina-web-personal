@@ -1,5 +1,10 @@
 const cursor = document.querySelector(".cursor");
 const isEnglish = document.documentElement.lang === "en";
+
+function normalizeSearchText(value) {
+  const lang = document.documentElement.lang || "en";
+  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase(lang);
+}
 const iconSprite = isEnglish ? "../img/icons.svg" : "img/icons.svg";
 const themeBtn = document.querySelector(".nav__theme");
 
@@ -16,9 +21,9 @@ function setThemeIcon(theme) {
 
 function setThemeLabel(theme) {
   if (!themeBtn) return;
-  themeBtn.setAttribute("aria-label", theme == "light" ? (isEnglish ? "Enable dark mode" : "Activar modo oscuro")
+  themeBtn.setAttribute("aria-label", theme === "light" ? (isEnglish ? "Enable dark mode" : "Activar modo oscuro")
   : (isEnglish ? "Enable light mode" : "Activar modo claro"));
-  themeBtn.setAttribute("aria-pressed", theme == "light" ? "true" : "false");
+  themeBtn.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
 }
 
 if (cursor) {
@@ -27,9 +32,25 @@ if (cursor) {
   }, 530);
 }
 
-const savedTheme = localStorage.getItem("theme");
+function readSavedTheme() {
+  try {
+    return localStorage.getItem("theme");
+  } catch {
+    return null;
+  }
+}
 
-if (savedTheme) {
+function saveTheme(theme) {
+  try {
+    localStorage.setItem("theme", theme);
+  } catch {
+    // The selected theme still applies for this page if storage is unavailable.
+  }
+}
+
+const savedTheme = readSavedTheme();
+
+if (savedTheme === "light" || savedTheme === "dark") {
   document.documentElement.setAttribute("data-theme", savedTheme);
   setThemeLabel(savedTheme);
   setThemeIcon(savedTheme);
@@ -40,7 +61,7 @@ if (themeBtn) {
     const isLight = document.documentElement.getAttribute("data-theme") === "light";
     const next = isLight ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
+    saveTheme(next);
     setThemeIcon(next);
     setThemeLabel(next);
   });
@@ -122,17 +143,19 @@ if (portrait && portraitImage && portraitCanvas) {
 // Buscador
 // =====================
 
-const SEARCH_INDEX = [
-  { title: "Inicio", url: "index.html", lang: "es", keywords: "Manuel Ignacio Olan Máster Ingeniería Web whoami presentación personal" },
-  { title: "Sobre mí", url: "sobre-mi.html", lang: "es", keywords: "sobre mí ingeniero infraestructura nube AWS DevOps UNAM Guadalajara México España viajes fútbol música tequila Puebla CONTPAQi FinOps" },
-  { title: "Galería", url: "galeria.html", lang: "es", keywords: "galería fotos viajes Barcelona Berlín París Londres Praga Múnich Bruselas Colonia Luxemburgo Machu Picchu Medellín Bogotá Guadalajara Guanajuato UNAM Eindhoven Maastricht Cartagena" },
-  { title: "Mis gustos", url: "gustos.html", lang: "es", keywords: "gustos tecnología AWS Azure servidores Apple cine Harry Potter Toy Story estilo vida café zapatillas música viajes fútbol PSG Barcelona Pumas comida autos podcast vídeo" },
-  { title: "Contacto", url: "contacto.html", lang: "es", keywords: "contacto correo teléfono ubicación España LinkedIn GitHub Instagram referencias" },
-  { title: "Home", url: "index.html", lang: "en", keywords: "Manuel Ignacio Olan Master Web Engineering whoami personal introduction" },
-  { title: "About me", url: "sobre-mi.html", lang: "en", keywords: "about me cloud infrastructure engineer AWS DevOps UNAM Guadalajara Mexico Spain travel football music tequila Puebla CONTPAQi FinOps" },
-  { title: "Gallery", url: "galeria.html", lang: "en", keywords: "gallery travel photos Barcelona Berlin Paris London Prague Munich Brussels Cologne Luxembourg Machu Picchu Medellin Bogota Guadalajara Guanajuato UNAM Eindhoven Maastricht Cartagena" },
-  { title: "Interests", url: "gustos.html", lang: "en", keywords: "interests technology AWS Azure servers Apple movies Harry Potter Toy Story lifestyle coffee sneakers music travel football PSG Barcelona Pumas food cars podcast video" },
-  { title: "Contact", url: "contacto.html", lang: "en", keywords: "contact email phone location Spain LinkedIn GitHub Instagram references" },
+const SEARCH_PAGES = [
+  { title: "Inicio", url: "index.html", lang: "es", keywords: "Manuel Ignacio Olan Máster Ingeniería Web presentación personal" },
+  { title: "Sobre mí", url: "sobre-mi.html", lang: "es", keywords: "ingeniero infraestructura nube AWS DevOps UNAM Guadalajara México España viajes fútbol música" },
+  { title: "Galería", url: "galeria.html", lang: "es", keywords: "fotos viajes Barcelona Berlín París Londres Praga Múnich Machu Picchu Medellín Bogotá" },
+  { title: "Mis gustos", url: "gustos.html", lang: "es", keywords: "tecnología AWS Azure servidores Apple cine Harry Potter música viajes fútbol comida" },
+  { title: "Contacto", url: "contacto.html", lang: "es", keywords: "correo teléfono ubicación LinkedIn GitHub Instagram" },
+  { title: "Mapa del sitio", url: "mapa-del-sitio.html", lang: "es", keywords: "navegación páginas" },
+  { title: "Home", url: "index.html", lang: "en", keywords: "Manuel Ignacio Olan Master Web Engineering personal introduction" },
+  { title: "About me", url: "sobre-mi.html", lang: "en", keywords: "cloud infrastructure engineer AWS DevOps UNAM Guadalajara Mexico Spain travel football music" },
+  { title: "Gallery", url: "galeria.html", lang: "en", keywords: "travel photos Barcelona Berlin Paris London Prague Munich Machu Picchu Medellin Bogota" },
+  { title: "Interests", url: "gustos.html", lang: "en", keywords: "technology AWS Azure servers Apple movies Harry Potter music travel football food" },
+  { title: "Contact", url: "contacto.html", lang: "en", keywords: "email phone location LinkedIn GitHub Instagram" },
+  { title: "Site map", url: "mapa-del-sitio.html", lang: "en", keywords: "navigation pages" },
 ];
 
 const searchBtn = document.querySelector(".nav__search-btn");
@@ -143,65 +166,84 @@ const searchResults = document.querySelector(".search-panel__results");
 if (searchBtn && searchPanel && searchInput && searchResults) {
   const lang = isEnglish ? "en" : "es";
   const base = isEnglish ? "../" : "";
-  const searchIndex = SEARCH_INDEX.filter(p => p.lang === lang);
+  const pages = SEARCH_PAGES.filter(page => page.lang === lang);
+  let pageContentPromise;
+  let searchRequest = 0;
 
-  function sanitize(str) {
-    return str.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  function loadPageContent() {
+    if (!pageContentPromise) {
+      pageContentPromise = Promise.all(pages.map(async page => {
+        try {
+          const response = await fetch(base + page.url);
+          if (!response.ok) return { ...page, content: "" };
+          const html = await response.text();
+          const pageDocument = new DOMParser().parseFromString(html, "text/html");
+          return { ...page, content: pageDocument.querySelector("main")?.textContent || "" };
+        } catch {
+          return { ...page, content: "" };
+        }
+      }));
+    }
+    return pageContentPromise;
   }
 
-  function highlight(text, query) {
-    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    return text.replace(new RegExp(`(${escaped})`, "gi"), "<mark>$1</mark>");
+  function showMessage(message) {
+    const item = document.createElement("li");
+    item.textContent = message;
+    searchResults.replaceChildren(item);
   }
 
-  function runSearch(query) {
-    searchResults.innerHTML = "";
+  async function runSearch(query) {
+    const request = ++searchRequest;
+    searchResults.replaceChildren();
     if (query.length < 2) return;
 
-    const q = query.toLowerCase();
-    const matches = searchIndex.filter(p =>
-      p.title.toLowerCase().includes(q) || p.keywords.toLowerCase().includes(q)
-    );
+    showMessage(isEnglish ? "Searching…" : "Buscando…");
+    const indexedPages = await loadPageContent();
+    if (request !== searchRequest) return;
+
+    const words = normalizeSearchText(query).split(/\s+/).filter(Boolean);
+    const matches = indexedPages.filter(page => {
+      const text = normalizeSearchText(page.title + " " + page.keywords + " " + page.content);
+      return words.every(word => text.includes(word));
+    });
 
     if (matches.length === 0) {
-      const li = document.createElement("li");
-      li.style.color = "var(--color-muted)";
-      li.textContent = isEnglish ? "No results found" : "Sin resultados";
-      searchResults.appendChild(li);
+      showMessage(isEnglish ? "No results found" : "Sin resultados");
       return;
     }
 
+    const fragment = document.createDocumentFragment();
     matches.forEach(page => {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
-      a.href = `${base}${page.url}?q=${encodeURIComponent(query)}`;
-      a.innerHTML = highlight(sanitize(page.title), sanitize(query));
-      li.appendChild(a);
-      searchResults.appendChild(li);
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = base + page.url + "?q=" + encodeURIComponent(query);
+      link.textContent = page.title;
+      item.appendChild(link);
+      fragment.appendChild(item);
     });
+    searchResults.replaceChildren(fragment);
   }
 
   searchBtn.addEventListener("click", () => {
-    const isHidden = searchPanel.hidden;
-    searchPanel.hidden = !isHidden;
-    searchBtn.setAttribute("aria-expanded", String(!isHidden));
-    if (isHidden) searchInput.focus();
+    const open = searchPanel.hidden;
+    searchPanel.hidden = !open;
+    searchBtn.setAttribute("aria-expanded", String(open));
+    if (open) searchInput.focus();
   });
 
   searchInput.addEventListener("input", () => runSearch(searchInput.value.trim()));
 
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && !searchPanel.hidden) {
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !searchPanel.hidden) {
       searchPanel.hidden = true;
       searchBtn.setAttribute("aria-expanded", "false");
       searchBtn.focus();
     }
   });
 
-  document.addEventListener("click", e => {
-    // The click usually lands on the SVG/use inside the button, not the button itself.
-    // Treat clicks anywhere inside the button as internal so the panel stays open.
-    if (!searchPanel.hidden && !searchPanel.contains(e.target) && !searchBtn.contains(e.target)) {
+  document.addEventListener("click", event => {
+    if (!searchPanel.hidden && !searchPanel.contains(event.target) && !searchBtn.contains(event.target)) {
       searchPanel.hidden = true;
       searchBtn.setAttribute("aria-expanded", "false");
     }
@@ -225,28 +267,53 @@ if (qParam && qParam.length >= 2) {
       }
     });
 
-    const escaped = qParam.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const regex = new RegExp(`(${escaped})`, "gi");
     const nodes = [];
     let node;
     while ((node = walker.nextNode())) nodes.push(node);
 
+    const normalizedQuery = normalizeSearchText(qParam);
     let firstMark = null;
+
     nodes.forEach(textNode => {
-      if (!regex.test(textNode.nodeValue)) return;
-      regex.lastIndex = 0;
+      const originalText = textNode.nodeValue;
+      const offsets = [];
+      let normalizedText = "";
+      let originalOffset = 0;
+
+      for (const character of originalText) {
+        const normalizedCharacter = normalizeSearchText(character);
+        normalizedText += normalizedCharacter;
+        for (let index = 0; index < normalizedCharacter.length; index += 1) {
+          offsets.push({ start: originalOffset, end: originalOffset + character.length });
+        }
+        originalOffset += character.length;
+      }
+
+      const ranges = [];
+      let searchFrom = 0;
+      let matchIndex = normalizedText.indexOf(normalizedQuery, searchFrom);
+      while (matchIndex !== -1) {
+        const firstOffset = offsets[matchIndex];
+        const lastOffset = offsets[matchIndex + normalizedQuery.length - 1];
+        if (firstOffset && lastOffset) ranges.push({ start: firstOffset.start, end: lastOffset.end });
+        searchFrom = matchIndex + normalizedQuery.length;
+        matchIndex = normalizedText.indexOf(normalizedQuery, searchFrom);
+      }
+
+      if (ranges.length === 0) return;
+
       const frag = document.createDocumentFragment();
-      let last = 0, match;
-      while ((match = regex.exec(textNode.nodeValue)) !== null) {
-        if (match.index > last) frag.appendChild(document.createTextNode(textNode.nodeValue.slice(last, match.index)));
+      let last = 0;
+      ranges.forEach(range => {
+        if (range.start > last) frag.appendChild(document.createTextNode(originalText.slice(last, range.start)));
         const mark = document.createElement("mark");
         mark.className = "search-highlight";
-        mark.textContent = match[1];
+        mark.textContent = originalText.slice(range.start, range.end);
         if (!firstMark) firstMark = mark;
         frag.appendChild(mark);
-        last = match.index + match[1].length;
-      }
-      if (last < textNode.nodeValue.length) frag.appendChild(document.createTextNode(textNode.nodeValue.slice(last)));
+        last = range.end;
+      });
+      if (last < originalText.length) frag.appendChild(document.createTextNode(originalText.slice(last)));
       textNode.parentElement.replaceChild(frag, textNode);
     });
 
