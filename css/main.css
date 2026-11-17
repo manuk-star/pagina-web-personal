@@ -299,6 +299,8 @@ nav a:is(:hover, [aria-current="page"]) {
 nav a[aria-current="page"] {
   color: var(--color-primary);
   font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 /* =====================
@@ -350,8 +352,10 @@ footer a {
 }
 
 .hero__prompt {
+  display: block;
   font-family: var(--font-mono);
   font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 400;
   color: var(--color-accent);
 }
 

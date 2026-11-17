@@ -1,5 +1,5 @@
-const cursor = document.querySelector(".cursor");
 const isEnglish = document.documentElement.lang === "en";
+const cursor = document.querySelector(".cursor");
 
 function normalizeSearchText(value) {
   const lang = document.documentElement.lang || "en";
@@ -26,7 +26,7 @@ function setThemeLabel(theme) {
   themeBtn.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
 }
 
-if (cursor) {
+if (cursor && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   setInterval(() => {
     cursor.style.opacity = cursor.style.opacity === "0" ? "1" : "0";
   }, 530);
