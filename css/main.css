@@ -6,10 +6,10 @@
   --color-bg: #0d1117;
   --color-surface: #161b22;
   --color-border: #30363d;
-  --color-primary: #58a6ff;
+  --color-primary: #8cc2ff;
   --color-text: #e6edf3;
-  --color-muted: #9ba5b0;
-  --color-accent: #3fb950;
+  --color-muted: #b8c1cc;
+  --color-accent: #6de28b;
 
   --font-mono: "Courier New", Courier, monospace;
   --font-sans: system-ui, -apple-system, sans-serif;
@@ -35,10 +35,16 @@
   --color-bg: #f6f8fa;
   --color-surface: #eaeef2;
   --color-border: #d0d7de;
-  --color-primary: #0969da;
+  --color-primary: #004a9f;
   --color-text: #1f2328;
-  --color-muted: #5a6270;
-  --color-accent: #1a7f37;
+  --color-muted: #424a55;
+  --color-accent: #14532d;
+}
+
+[data-theme="light"] .language-switch,
+[data-theme="light"] .nav__theme,
+[data-theme="light"] .nav__search-btn {
+  background-color: var(--color-surface);
 }
 
 [data-theme="light"] header {
@@ -306,6 +312,11 @@ nav a[aria-current="page"] {
 /* =====================
    Main & Footer
    ===================== */
+
+main a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
 
 main {
   flex: 1;
